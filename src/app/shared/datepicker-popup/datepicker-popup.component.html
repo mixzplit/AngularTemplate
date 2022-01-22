@@ -1,0 +1,8 @@
+<div class="input-group" [formGroup]="parentForm">
+    <input type="text" class="form-control" placeholder="Fecha" id="fecha" formControlName="{{fromControlName}}" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                    <fa-icon [icon]="faCalendarAlt" size="3x"></fa-icon>
+                </button>
+    </div>
+</div>

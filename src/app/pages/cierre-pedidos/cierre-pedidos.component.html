@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Cierre de Pedidos WOE</h1>
+    <h1 class="h2">{{ title }}</h1>
     <!--<div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
@@ -11,39 +11,97 @@
       </button>
     </div>-->
 </div>
-<form action="">
+<form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off">
 
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingAño" placeholder="Año">
-        <label for="floatingAño">Año</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingCampaña" placeholder="Campaña">
-        <label for="floatingCampaña">Campaña</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingZona" placeholder="Zona">
-        <label for="floatingCampaña">Zona</label>
-    </div>
-    <div class="form-floating mb-3">
-        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-          <option selected>Seleccione Perfil</option>
-          <option value="1">Revendedora</option>
-          <option value="2">Gerente de Zona</option>
-          <option value="3">Gerente Divisional</option>
-          <option value="4">Unit Manager</option>
-        </select>
-        <label for="floatingSelect">Works with selects</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingFecha" placeholder="Fecha">
-        <label for="floatingFecha">Fecha</label>
+    <!-- Section Año, Campaña -->
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingAño" placeholder="Año" formControlName="anio" [class.is-invalid]="anioInvalid">
+                <label for="floatingAño">Año</label>
+                <div *ngIf="anioInvalid">
+                    <div *ngIf="form.controls['anio'].errors?.['required']" class="text-danger">Año es obligatorio</div>
+                    <div *ngIf="form.controls['anio'].errors?.['maxlength'] || form.controls['anio'].errors?.['minlength'] " class="text-danger">Año debe tener 4 números</div>
+                    <div *ngIf="form.controls['anio'].errors?.['pattern']" class="text-danger">Año solo debe contener números</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingCampaña" placeholder="Campaña" formControlName="campania" [class.is-invalid]="campaniaInvalid">
+                <label for="floatingCampaña">Campaña</label>
+                <span *ngIf="campaniaInvalid" class="text-danger">Campaña es obligatorio</span>
+            </div>
+        </div>
     </div>
 
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingHora" placeholder="Hora">
-        <label for="floatingHora">Hora</label>
+    <!-- Section Zona, Perfil -->
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingZona" placeholder="Zona" formControlName="zona" [class.is-invalid]="zonaInvalid">
+                <label for="floatingCampaña">Zona</label>
+                <span *ngIf="zonaInvalid" class="text-danger">Zona es obligatorio</span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <select class="form-select" d="floatingSelect" aria-label="Floating label select example" formControlName="contrato" [class.is-invalid]="perfilInvalid">
+                  <option selected>Seleccione Perfil</option>
+                  <option value="1">Revendedora</option>
+                  <option value="2">Gerente de Zona</option>
+                  <option value="3">Gerente Divisional</option>
+                  <option value="4">Unit Manager</option>
+                </select>
+                <label for="floatingSelect">Works with selects</label>
+                <span *ngIf="perfilInvalid" class="text-danger">Seleccione un perfil</span>
+            </div>
+        </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <!--Section Fecha, hora -->
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <app-datepicker-popup [parentForm]="form" [fromControlName]="'fecha'"></app-datepicker-popup>
+                <span *ngIf="fechaInvalid" class="text-danger">Fecha es obligatorio</span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingHora" placeholder="Hora" formControlName="serie" [class.is-invalid]="horaInvalid">
+                <label for="floatingHora">Hora</label>
+                <span *ngIf="horaInvalid" class="text-danger">Hora es obligatorio</span>
+            </div>
+        </div>
+
+    </div>
+    <!--Submit-->
+    <input name="enviar" id="enviar" class="btn btn-primary" type="submit" value="Enviar">
 </form>
+
+<div class="alert alert-danger mt-3" role="alert" *ngIf="errorMsg !== ''">
+    <span class="text-danger">{{ errorMsg }}</span>
+</div>
+
+<div class="alert alert-success mt-3" role="alert" *ngIf="successMsg !== ''">
+    <span class="text-success">{{ successMsg }}</span>
+</div>
+
+<div class="alert alert-success mt-3" role="alert" *ngIf="successFileToGestor !== ''">
+    <span class="text-success">{{ successFileToGestor }}</span>
+</div>
+
+<div class="alert alert-danger mt-3" role="alert" *ngIf="errorFileToGestor !== ''">
+    <span class="text-danger">{{ errorFileToGestor }}</span>
+</div>
+
+<!--<pre>
+    Form Status: {{ form.valid }}
+    <br>
+    Status: {{form.status}}
+</pre>-->
+
+<!--<pre>
+    {{form.value | json}}
+</pre>-->

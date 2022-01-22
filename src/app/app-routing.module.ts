@@ -12,8 +12,9 @@ const routes: Routes = [
       { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardModule)},
       { path: 'cierrePedidos', loadChildren: () => import('./pages/cierre-pedidos/cierre-pedidos.module').then( m => m.CierrePedidosModule)},
       { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
+      { path: 'products', loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule) },
     ],
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   { path: '**', pathMatch: 'full', redirectTo: '/login' }
 ];

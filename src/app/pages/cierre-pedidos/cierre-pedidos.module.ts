@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { CierrePedidosRoutingModule } from './cierre-pedidos-routing.module';
 import { CierrePedidosComponent } from './cierre-pedidos.component';
+import { SharedModule } from '../../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -10,7 +12,13 @@ import { CierrePedidosComponent } from './cierre-pedidos.component';
   ],
   imports: [
     CommonModule,
-    CierrePedidosRoutingModule
+    CierrePedidosRoutingModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
+  providers: [
+    DatePipe
+  ]
 })
 export class CierrePedidosModule { }

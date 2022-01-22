@@ -1,0 +1,73 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
+
+/**
+ * Servicio ProductService.
+ * 
+ * Aqui conectaremos a la API a todos los endpoints: POST, GET, PUT...
+ * 
+ * @example
+ * /api/products
+ */
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductService {
+  
+  /** Guardamos la informacion de los Endpoint */
+  response!: any; 
+  /**
+   * Constructor, recibe como parametro el HttpClient
+   * para hacer los HTTP Requests
+   * @param {HttpClient} http 
+   */
+  constructor(private http: HttpClient) { }
+  
+  /**
+   * Metodo que conecta con el endpoint /api/products/codigo
+   * para obtener la lista de productos
+   * @param {any} data
+   * @returns Objeto de Productos
+   */
+  getProduct(data: any){
+      const { codigoarticulo, anio, campania } = data;
+      let params = new HttpParams().set('anio', anio).set('campania', campania);
+
+      return this.http.get(`http://localhost:8081/api/products/${codigoarticulo}`, {params: params})
+      .pipe(
+        map(
+          resp => {
+            this.response = resp;
+            return resp;
+          }
+        )
+      );
+  }
+
+  /**
+   * Metodo que conecta con /api/products/id
+   * para eliminar el articulo seleccionado
+   * @param {any} data 
+   * @returns {String} Mensaje Success
+   */
+  deleteProduct(data:any){
+
+    let id = data.ID;
+    //let anio = data.ANIO;
+    //let campania = data.CAMPANIA;
+    //let codigoarticulo = data.CODIGOARTICULO;
+
+    return this.http.delete(`http://localhost:8081/api/products/${id}`)
+    .pipe(
+      map(
+        resp => {
+          this.response = resp;
+          return resp;
+        }
+      )
+    ); 
+  }
+
+
+}

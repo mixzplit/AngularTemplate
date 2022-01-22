@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ title }}</h1>
+</div>
+
+<form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off">
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingAño" placeholder="Año" formControlName="anio" [class.is-invalid]="anioInvalid">
+                <label for="floatingAño">Año</label>
+                <div *ngIf="anioInvalid">
+                    <div *ngIf="form.controls['anio'].errors?.['required']" class="text-danger">Año es obligatorio</div>
+                    <div *ngIf="form.controls['anio'].errors?.['maxlength'] || form.controls['anio'].errors?.['minlength'] " class="text-danger">Año debe tener 4 números</div>
+                    <div *ngIf="form.controls['anio'].errors?.['pattern']" class="text-danger">Año solo debe contener números</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingCampaña" placeholder="Campaña" formControlName="campania" [class.is-invalid]="campaniaInvalid">
+                <label for="floatingCampaña">Campaña</label>
+                <span *ngIf="campaniaInvalid" class="text-danger">Campaña es obligatorio</span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingCodigo" placeholder="Codigo" formControlName="codigoarticulo" [class.is-invalid]="codigoInvalid">
+                <label for="floatingCodigo">Codigo Articulo</label>
+                <span *ngIf="codigoInvalid" class="text-danger">Codigo Articulo es obligatorio</span>
+            </div>
+        </div>
+        <div class="col">
+            <button class="btn btn-lg btn-primary">Buscar</button>
+        </div>
+    </div>
+
+</form>
+
+<!--<div>
+    {{response | json }}
+</div>-->
+
+<div class="table-responsive">
+    <ngx-skeleton-loader *ngIf="loader" count="5" appearance="line"></ngx-skeleton-loader>
+</div>
+
+<div class="table-responsive" *ngIf="show">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Anio</th>
+                <th>Campania</th>
+                <th>Codigo Articulo</th>
+                <th>Codigo Facturación</th>
+                <th>Correlativo</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of response.data; index as i">
+                <td>{{i + 1}}</td>
+                <td>{{item["ANIO"]}}</td>
+                <td>{{item["CAMPANIA"]}}</td>
+                <td>{{item["CODIGOARTICULO"]}}</td>
+                <td>{{item["CODIGOFACTURACION"]}}</td>
+                <td>{{item["CORRELATIVO"]}}</td>
+                <td>{{item["NOMBREARTICULO"]}}</td>
+                <td>{{item["PRECIOORDEN"]}}</td>
+                <td>
+                    <fa-icon (click)="onDelete(item)" [icon]="faTimesCircle"></fa-icon>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<span>{{errorMsg}}</span>
