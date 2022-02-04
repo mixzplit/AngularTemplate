@@ -196,6 +196,7 @@ import { HeaderComponent } from &#x27;./header/header.component&#x27;;
 import { SidebarComponent } from &#x27;./sidebar/sidebar.component&#x27;;
 import { RouterModule } from &#x27;@angular/router&#x27;;
 import { FullLayoutComponent } from &#x27;./full-layout/full-layout.component&#x27;;
+import { AvatarModule } from &#x27;ngx-avatars&#x27;;
 
 @NgModule({
   declarations: [
@@ -205,6 +206,7 @@ import { FullLayoutComponent } from &#x27;./full-layout/full-layout.component&#x
   ],
   imports: [
     CommonModule,
+    AvatarModule,
     RouterModule.forChild([])
   ],
   exports: [

@@ -143,9 +143,6 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#response" >response</a>
-                            </li>
-                            <li>
                                 <a href="#respUserInfo" >respUserInfo</a>
                             </li>
                         </ul>
@@ -189,7 +186,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/pages/profile/profile.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/pages/profile/profile.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -258,8 +255,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">src/app/pages/profile/profile.component.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">src/app/pages/profile/profile.component.ts:37</a></div>
                 </td>
             </tr>
 
@@ -298,8 +295,8 @@ se ejecuta cada vez que es invocado.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">src/app/pages/profile/profile.component.ts:29</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/app/pages/profile/profile.component.ts:28</a></div>
                 </td>
             </tr>
 
@@ -328,43 +325,6 @@ llama al metodo que obtiene la informacion del usuario logeado.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="response"></a>
-                    <span class="name">
-                        <span ><b>response</b></span>
-                        <a href="#response"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>{}</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/pages/profile/profile.component.ts:16</a></div>
-                        </td>
-                    </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Guardamos la informacion de la respuesta</p>
-</div>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="respUserInfo"></a>
                     <span class="name">
                         <span ><b>respUserInfo</b></span>
@@ -380,7 +340,7 @@ llama al metodo que obtiene la informacion del usuario logeado.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/pages/profile/profile.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/pages/profile/profile.component.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -413,8 +373,7 @@ import { UserService } from &#x27;../../services/user.service&#x27;;
   styleUrls: [&#x27;./profile.component.css&#x27;]
 })
 export class ProfileComponent implements OnInit {
-  /** Guardamos la informacion de la respuesta */
-  response: any &#x3D; {};
+
   /** Guardamos la informacion de la respuesta parseada como objeto JSON */
   respUserInfo: any;
   /**
@@ -437,16 +396,7 @@ export class ProfileComponent implements OnInit {
    * se ejecuta cada vez que es invocado.
    */
   getUserInfo(){
-    this.auth.infoUser().subscribe({
-        next: (resp) &#x3D;&gt; {
-          this.response &#x3D; resp
-          this.respUserInfo &#x3D; JSON.parse(this.response.session);
-          console.log(this.response.session);
-        },
-        error: (err) &#x3D;&gt; {
-          console.log(err);
-        }
-    });
+    this.respUserInfo &#x3D; this.auth.infoUser();
   }
 
 }

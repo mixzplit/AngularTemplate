@@ -12,8 +12,7 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  /** Guardamos la informacion de la respuesta */
-  response: any = {};
+
   /** Guardamos la informacion de la respuesta parseada como objeto JSON */
   respUserInfo: any;
   /**
@@ -36,16 +35,7 @@ export class ProfileComponent implements OnInit {
    * se ejecuta cada vez que es invocado.
    */
   getUserInfo(){
-    this.auth.infoUser().subscribe({
-        next: (resp) => {
-          this.response = resp
-          this.respUserInfo = JSON.parse(this.response.session);
-          console.log(this.response.session);
-        },
-        error: (err) => {
-          console.log(err);
-        }
-    });
+    this.respUserInfo = this.auth.infoUser();
   }
 
 }

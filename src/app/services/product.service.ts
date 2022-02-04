@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Product } from '../models/productModel';
 
 /**
  * Servicio ProductService.
@@ -14,7 +16,6 @@ import { map } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
-  
   /** Guardamos la informacion de los Endpoint */
   response!: any; 
   /**
@@ -27,21 +28,17 @@ export class ProductService {
   /**
    * Metodo que conecta con el endpoint /api/products/codigo
    * para obtener la lista de productos
-   * @param {any} data
+   * @param {Product} data
    * @returns Objeto de Productos
    */
-  getProduct(data: any){
-      const { codigoarticulo, anio, campania } = data;
+  getProduct(product: Product) {
+      const { codigoarticulo, anio, campania } = product;
       let params = new HttpParams().set('anio', anio).set('campania', campania);
-
-      return this.http.get(`http://localhost:8081/api/products/${codigoarticulo}`, {params: params})
+      return this.http.get(`${environment.SERVER_TW}/api/products/${codigoarticulo}`, {params: params})
       .pipe(
-        map(
-          resp => {
-            this.response = resp;
-            return resp;
-          }
-        )
+        map(resp => {
+          return resp;
+        })
       );
   }
 
@@ -52,13 +49,8 @@ export class ProductService {
    * @returns {String} Mensaje Success
    */
   deleteProduct(data:any){
-
     let id = data.ID;
-    //let anio = data.ANIO;
-    //let campania = data.CAMPANIA;
-    //let codigoarticulo = data.CODIGOARTICULO;
-
-    return this.http.delete(`http://localhost:8081/api/products/${id}`)
+    return this.http.delete(`${environment.SERVER_TW}/api/products/${id}`)
     .pipe(
       map(
         resp => {
@@ -68,6 +60,5 @@ export class ProductService {
       )
     ); 
   }
-
 
 }

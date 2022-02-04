@@ -78,6 +78,7 @@ import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
 import { LoginComponent } from &#x27;./pages/login/login.component&#x27;;
 import { FullLayoutComponent } from &#x27;./layout/full-layout/full-layout.component&#x27;;
 import { AuthGuard } from &#x27;./guards/auth.guard&#x27;;
+import { RoleGuard } from &#x27;./guards/role.guard&#x27;;
 
 const routes: Routes &#x3D; [
   { path: &#x27;login&#x27;, component: LoginComponent },
@@ -85,9 +86,9 @@ const routes: Routes &#x3D; [
     component: FullLayoutComponent, 
     children: [
       { path: &#x27;dashboard&#x27;, loadChildren: () &#x3D;&gt; &quot;import(&#x27;./pages/dashboard/dashboard.module&#x27;).then( m &#x3D;&gt; m.DashboardModule)&quot;},
-      { path: &#x27;cierrePedidos&#x27;, loadChildren: () &#x3D;&gt; &quot;import(&#x27;./pages/cierre-pedidos/cierre-pedidos.module&#x27;).then( m &#x3D;&gt; m.CierrePedidosModule)&quot;},
+      { path: &#x27;cierrePedidos&#x27;, loadChildren: () &#x3D;&gt; &quot;import(&#x27;./pages/cierre-pedidos/cierre-pedidos.module&#x27;).then( m &#x3D;&gt; m.CierrePedidosModule)&quot;, canActivate: [RoleGuard]},
       { path: &#x27;profile&#x27;, loadChildren: () &#x3D;&gt; &quot;import(&#x27;./pages/profile/profile.module&#x27;).then(m &#x3D;&gt; m.ProfileModule)&quot; },
-      { path: &#x27;products&#x27;, loadChildren: () &#x3D;&gt; &quot;import(&#x27;./pages/products/products.module&#x27;).then(m &#x3D;&gt; m.ProductsModule)&quot; },
+      { path: &#x27;products&#x27;, loadChildren: () &#x3D;&gt; &quot;import(&#x27;./pages/products/products.module&#x27;).then(m &#x3D;&gt; m.ProductsModule)&quot;, canActivate: [RoleGuard] },
     ],
     canActivate: [AuthGuard]
   },

@@ -293,8 +293,8 @@ y valida las credenciales del usuario en LDAP Server</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="93"
-                            class="link-to-prism">src/app/services/user.service.ts:93</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">src/app/services/user.service.ts:86</a></div>
                 </td>
             </tr>
 
@@ -340,18 +340,18 @@ y valida las credenciales del usuario en LDAP Server</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Metodo que obtiene la informacion del usuario enviando
-el ID de la session cookie al endpoint /api/sessions/:id</p>
+                    <div class="io-description"><p>Metodo que obtiene la informacion del usuario de la cookie
+generada al iniciar sesion</p>
 </div>
 
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
 
                     </div>
                     <div class="io-description">
-                        <p>Retorna un Objeto JSON con la informacion del usuario</p>
+                        <p>Un objeto con la informacion del usuario</p>
 
                     </div>
                 </td>
@@ -378,8 +378,8 @@ el ID de la session cookie al endpoint /api/sessions/:id</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="75"
-                            class="link-to-prism">src/app/services/user.service.ts:75</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/app/services/user.service.ts:68</a></div>
                 </td>
             </tr>
 
@@ -425,8 +425,8 @@ o no para ver las Routes</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="86"
-                            class="link-to-prism">src/app/services/user.service.ts:86</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="79"
+                            class="link-to-prism">src/app/services/user.service.ts:79</a></div>
                 </td>
             </tr>
 
@@ -540,20 +540,13 @@ export class UserService {
   }// end authUser
 
   /**
-   * Metodo que obtiene la informacion del usuario enviando
-   * el ID de la session cookie al endpoint /api/sessions/:id
-   * @returns Retorna un Objeto JSON con la informacion del usuario
+   * Metodo que obtiene la informacion del usuario de la cookie
+   * generada al iniciar sesion
+   * @returns Un objeto con la informacion del usuario
    */
-  infoUser(){
-
-    return this.http.get(&#x60;http://localhost:8081/api/sessions/${this.getCookie()}&#x60;).pipe(
-            map( resp &#x3D;&gt; {
-              this.response &#x3D; resp
-              //console.log(JSON.parse(this.response.session));
-              //console.log(this.getCookie());
-              return resp;
-            })
-          );
+  infoUser(): object{
+    this.response &#x3D; JSON.parse(this.getCookie());
+    return this.response.data;
   }
 
   /**
@@ -563,7 +556,7 @@ export class UserService {
    * @returns Boolean
    */
   isAuth(): boolean{
-    console.log(this.cookie.get(&#x27;session_id&#x27;));
+    //console.log(this.cookie.get(&#x27;session_id&#x27;));
     if(this.cookie.get(&#x27;session_id&#x27;)){
       return true;
     }
@@ -575,7 +568,7 @@ export class UserService {
    */
   setCookie(){
       this.cookie.set(
-        &quot;session_id&quot;, this.response.session_id, 
+        &quot;session_id&quot;, JSON.stringify(this.response), 
         {&quot;expires&quot;: new Date(this.response.data.cookie.expires)}
       );
   } 

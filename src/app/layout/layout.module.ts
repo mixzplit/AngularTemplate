@@ -4,6 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
+import { AvatarModule } from 'ngx-avatars';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { FullLayoutComponent } from './full-layout/full-layout.component';
   ],
   imports: [
     CommonModule,
+    AvatarModule,
     RouterModule.forChild([])
   ],
   exports: [

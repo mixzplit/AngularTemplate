@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { faTimesCircle, faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
+import { Product } from '../../models/productModel';
+import Swal from 'sweetalert2';
 
 /**
  * Componente Products.
@@ -21,6 +23,8 @@ export class ProductsComponent implements OnInit {
    * Realiza un seguimiento del valor y el estado de validez de un grupo de instancias de FormControl 
    */
   form!: FormGroup;
+  /** Iniciamos el objeto Product y lo asociamos a los valores del formulario */
+  product: Product = new Product();
   /** Guardamos la informacion de la respuesta */
   response: any = {};
   /** Guardamos el mensaje de Error */
@@ -70,7 +74,6 @@ export class ProductsComponent implements OnInit {
    * @returns Returna un objeto JSON con la informacion Success ó Error
    */
   onSubmit(){
-    /** Guardamos la informacion del formulario reactivo en esta variable */
     let formValues = this.form;
     this.loader = true;
     this.show = false;
@@ -81,41 +84,47 @@ export class ProductsComponent implements OnInit {
       });
     }
 
-    this.productService.getProduct(formValues.value).subscribe({
+    this.product = formValues.value;
+
+    this.productService.getProduct(this.product).subscribe({
       next: (resp) => {
         this.response = resp
-        //setTimeout(() => {
-          this.show = true;
-          this.loader = false;
-        //}, 3000);
+        this.show = true;
+        this.loader = false;
       },
       error: (err) => {
         console.log(err.error.error.sqlMsg);
         this.errorMsg = err.error.error.sqlMsg;
-      }
-      
-    })
-
+      }      
+    });
   }
   
   /**
    * Enviamos el objeto item que seria el
-   * resultado del metodo {@link onSubmit}
-   * @param {Object} item 
+   * resultado del metodo [OnSubmit]{@link ProductsComponent#onSubmit}
+   * @param {Product} product 
    */
-  onDelete(item: any){
-    
-    this.productService.deleteProduct(item).subscribe({
-      next: (resp) => {
-        this.response = resp;
-        console.log(this.response);
-        this.onSubmit();
-      },
-      error: (err) => {
-        console.log(err);
-      }
+  onDelete(product: any, id: number){
+    Swal.fire({
+      title: 'Borrar Producto',
+      text: `¿Esta seguro que desea borrar el articulo ${product.NOMBREARTICULO} ?`,
+      icon: 'question',
+      showCancelButton: true,
+      showConfirmButton: true
+    }).then( resp => {
+      // Si la respuesta es TRUE, entonces borramos el articulo
+      // si no, no hace nada.
+      if(resp.value){
+        this.productService.deleteProduct(product).subscribe({
+          next: (resp) => {
+            this.onSubmit(); //refrescamos
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
+      }    
     });
-
   }
 
   /**
@@ -130,7 +139,6 @@ export class ProductsComponent implements OnInit {
                   Validators.pattern(`^[0-9]*$`) ] ],
       campania: ['', [Validators.required, Validators.maxLength(2)] ],
       codigoarticulo: ['', [Validators.required] ],
-
     });
   }
 

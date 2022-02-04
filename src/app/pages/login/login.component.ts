@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
       next: (resp) => { 
         this.response = resp
         console.log(this.response);
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/home/dashboard');
       },
       error: (err) => { 
         console.log(err);

@@ -197,8 +197,8 @@ para hacer los HTTP Requests</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">src/app/services/product.service.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/app/services/product.service.ts:50</a></div>
                 </td>
             </tr>
 
@@ -263,7 +263,7 @@ para eliminar el articulo seleccionado</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getProduct(data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+<code>getProduct(product: <a href="../classes/Product.html" target="_self">Product</a>)</code>
                 </td>
             </tr>
 
@@ -295,9 +295,9 @@ para obtener la lista de productos</p>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>data</td>
+                                    <td>product</td>
                                     <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                <code><a href="../classes/Product.html" target="_self" >Product</a></code>
                                     </td>
 
                                     <td>
@@ -370,6 +370,7 @@ para obtener la lista de productos</p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient, HttpParams } from &#x27;@angular/common/http&#x27;;
 import { Injectable } from &#x27;@angular/core&#x27;;
 import { map } from &#x27;rxjs&#x27;;
+import { Product } from &#x27;../models/productModel&#x27;;
 
 /**
  * Servicio ProductService.
@@ -383,7 +384,6 @@ import { map } from &#x27;rxjs&#x27;;
   providedIn: &#x27;root&#x27;
 })
 export class ProductService {
-  
   /** Guardamos la informacion de los Endpoint */
   response!: any; 
   /**
@@ -396,21 +396,17 @@ export class ProductService {
   /**
    * Metodo que conecta con el endpoint /api/products/codigo
    * para obtener la lista de productos
-   * @param {any} data
+   * @param {Product} data
    * @returns Objeto de Productos
    */
-  getProduct(data: any){
-      const { codigoarticulo, anio, campania } &#x3D; data;
+  getProduct(product: Product) {
+      const { codigoarticulo, anio, campania } &#x3D; product;
       let params &#x3D; new HttpParams().set(&#x27;anio&#x27;, anio).set(&#x27;campania&#x27;, campania);
-
       return this.http.get(&#x60;http://localhost:8081/api/products/${codigoarticulo}&#x60;, {params: params})
       .pipe(
-        map(
-          resp &#x3D;&gt; {
-            this.response &#x3D; resp;
-            return resp;
-          }
-        )
+        map(resp &#x3D;&gt; {
+          return resp;
+        })
       );
   }
 
@@ -421,12 +417,7 @@ export class ProductService {
    * @returns {String} Mensaje Success
    */
   deleteProduct(data:any){
-
     let id &#x3D; data.ID;
-    //let anio &#x3D; data.ANIO;
-    //let campania &#x3D; data.CAMPANIA;
-    //let codigoarticulo &#x3D; data.CODIGOARTICULO;
-
     return this.http.delete(&#x60;http://localhost:8081/api/products/${id}&#x60;)
     .pipe(
       map(
@@ -437,7 +428,6 @@ export class ProductService {
       )
     ); 
   }
-
 
 }
 </code></pre>

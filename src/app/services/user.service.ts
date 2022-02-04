@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { UsuarioModel } from '../models/usuarioModel';
 import { map, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Servicio UserService.
@@ -38,7 +39,7 @@ export class UserService {
     const userData = {
       ...user
     };
-    return this.http.post('http://localhost:8081/api/auth', userData)
+    return this.http.post(`${environment.SERVER_TW}/api/auth`, userData)
       .pipe(
         map( resp => {
           this.response = resp
@@ -50,20 +51,13 @@ export class UserService {
   }// end authUser
 
   /**
-   * Metodo que obtiene la informacion del usuario enviando
-   * el ID de la session cookie al endpoint /api/sessions/:id
-   * @returns Retorna un Objeto JSON con la informacion del usuario
+   * Metodo que obtiene la informacion del usuario de la cookie
+   * generada al iniciar sesion
+   * @returns Un objeto con la informacion del usuario
    */
-  infoUser(){
-
-    return this.http.get(`http://localhost:8081/api/sessions/${this.getCookie()}`).pipe(
-            map( resp => {
-              this.response = resp
-              //console.log(JSON.parse(this.response.session));
-              //console.log(this.getCookie());
-              return resp;
-            })
-          );
+  infoUser(): object{
+    this.response = JSON.parse(this.getCookie());
+    return this.response.data;
   }
 
   /**
@@ -73,7 +67,7 @@ export class UserService {
    * @returns Boolean
    */
   isAuth(): boolean{
-    console.log(this.cookie.get('session_id'));
+    //console.log(this.cookie.get('session_id'));
     if(this.cookie.get('session_id')){
       return true;
     }
@@ -85,7 +79,7 @@ export class UserService {
    */
   setCookie(){
       this.cookie.set(
-        "session_id", this.response.session_id, 
+        "session_id", JSON.stringify(this.response), 
         {"expires": new Date(this.response.data.cookie.expires)}
       );
   } 

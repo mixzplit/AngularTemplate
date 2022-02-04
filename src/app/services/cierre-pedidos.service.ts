@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { CierrePedidos } from '../models/cierrePedidosInterface';
 
 /**
@@ -38,7 +39,7 @@ export class CierrePedidosService {
       ...cierrePedidos
     };
 
-    return this.http.post('http://localhost:8081/api/cierrepedidos', data).pipe(
+    return this.http.post(`${environment.SERVER_TW}/api/cierrepedidos`, data).pipe(
       map(
         resp => {
           this.respone = resp;
