@@ -9,6 +9,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { LayoutModule } from './layout/layout.module';
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SocketsService } from './services/sockets.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     LayoutModule,
   ],
-  providers: [CookieService],
+  providers: [CookieService, SocketsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

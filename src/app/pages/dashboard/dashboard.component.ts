@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { SocketsService } from '../../services/sockets.service';
 import { Chart, LinearScale, BarController, CategoryScale, BarElement, LineController,
-        PointElement, LineElement } from 'chart.js';
+        PointElement, LineElement, Legend, Tooltip } from 'chart.js';
+//import * as internal from 'stream';
+import { map } from 'rxjs';
+import { faOtter } from '@fortawesome/free-solid-svg-icons';
 Chart.register(LinearScale, BarController, CategoryScale, BarElement, 
-               LineController, PointElement, LineElement);
+               LineController, PointElement, LineElement, Legend, Tooltip);
 /**
  * Componente Dashboard
  */
@@ -20,72 +24,116 @@ export class DashboardComponent implements OnInit {
   ctx: any;
   /** Este sera el valor que asignaremos al elemento canvas de la vista */
   @ViewChild('mychart') mychart: any;
+  chartjs: any;
+  /** Usuarios Conectados */
+  userCount: number | unknown;
+  /** Cantidad de Ofertas Solicitadas */
+  cantOfertaActual: number | unknown;
+  /** Stock de la oferta actual */
+  stockOfertaActual: number | unknown;
+  finOfertaActual: string | any;
+  descOfertaActual: string | unknown;
+  offers: any;
 
   /** Constructor */
-  constructor() { }
+  constructor(private socket: SocketsService) { 
+    console.log('constructor');
+  }
   
   /** OnInit */
   ngOnInit(): void {
     console.log('Dashboard');
-  }
-  /**
-   * AfterViewInit
-   */
-  ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-    this.initializeChartOptions();
+
+    this.socket.conectado();
+  
+    this.socket.desconectado();
+    
+    this.socket.offers().subscribe( (data:any) => {
+
+      this.cantOfertaActual = data[0].cant;
+      this.stockOfertaActual = data[0].stock;
+      this.finOfertaActual = data[0].fechafin;
+      this.descOfertaActual = data[0].descripcion;
+      this.offers = data;
+    });
+     
+    this.socket.altaswebAnio().subscribe( (data:any) => {
+      // Generamos un graficos con las
+      // Altas Web del Año actual
+
+      let dataVar = {
+        datasets: [{
+            backgroundColor: ["rgb(115 185 243 / 65%)","rgb(190 241 223 / 65%)",
+                              "rgb(130 210 190 / 65%)","rgb(115 110 213 / 65%)",
+                              "rgb(243 100 120 / 65%)","rgb(175 115 243 / 65%)",
+                              "rgb(200 233 113 / 65%)"],
+            borderWidth: 1,
+            fill: false,
+            data: []
+        }]
+     };
+
+
+      if(this.chartjs){
+        this.chartjs.destroy();
+      }
+
+      this.chartjs = new Chart( 'myChart',{
+          type:'bar',
+          data:dataVar,
+          options:{
+            scales:{
+              y:{
+                beginAtZero: true
+              }
+            },
+            plugins:{
+              legend:{
+                display:true,
+                position: 'top',
+                labels: {
+                  color: 'rgb(255, 99, 132)'
+                }
+              }
+            }
+          }
+      });
+
+      for (const key in data) {
+        this.chartjs.data['labels'].push(data[key].estado);
+        this.chartjs.data['datasets'][0].label = data[key].anio;
+        this.chartjs.data['datasets'][0].data.push(data[key].cantidad);
+      }
+      this.chartjs.update();
+    });
+
+    this.socket.userCount().subscribe( (data:any) => {
+      //console.log(data);
+      this.userCount = data.userCount;
+    })
+
+
     
   }
 
-  /**
-   * Metodo que inicializa las propiedades de ApexChart.
-   * 
-   * IMPORTANTE: Si al hacer "npm install" por primera vez, si falla al descargar la libreria de
-   * de ApexChart, instalar con "npm install --force"
-   */
-  private initializeChartOptions(): void {
-    this.canvas = this.mychart.nativeElement;
-    this.ctx = this.canvas.getContext('2d');
 
-    console.log(this.ctx);
-    new Chart(this.ctx, {
-      type: 'line',
-      data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: "rgb(115 185 243 / 65%)",
-              borderColor: "#007ee7",
-              /*backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],*/
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          }
-      }
+  groupArrayOfObjects(list:any, key:any) {
+    return list.reduce((rv:any, x:any) => {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {});
+  };
+
+  addData(chart:any, label:any, data:any) {
+    chart.data.labels = label;
+    chart.data.datasets.forEach((dataset:any) => {
+        dataset.data.push(data);
     });
-
+    chart.update();
   }
+
+/*   filterObjectProperties({id, name, image, episode}){
+    return {id, name, image, episode};
+  } */
 
 }
