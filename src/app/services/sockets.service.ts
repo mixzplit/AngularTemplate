@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { io } from "socket.io-client";
+import { environment } from 'src/environments/environment';
 import { EstadoModel } from '../models/estados';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { EstadoModel } from '../models/estados';
 export class SocketsService {
   
   socket:any;
-  server = 'http://localhost:8081';
+  server = environment.SERVER_TW;
 
   constructor() {
     this.setupSocketConnection();

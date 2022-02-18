@@ -25,7 +25,7 @@ import { SocketsService } from './services/sockets.service';
     HttpClientModule,
     LayoutModule,
   ],
-  providers: [CookieService, SocketsService],
+  providers: [CookieService,SocketsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,21 +1,39 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse accordion">
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
             <li class="nav-item" *ngIf="roleGuard.canActivate()">
                 <a routerLink="/home/dashboard" routerLinkActive="active" class="nav-link" aria-current="page" href="#">
-                    <!--<span data-feather="home"></span>-->Dashboard
+                    <fa-icon [icon]="faTachometerAlt" class="me-2"></fa-icon>Dashboard
                 </a>
             </li>
             <li class="nav-item" *ngIf="roleGuard.canActivate()">
                 <a routerLink="/home/cierrePedidos" routerLinkActive="active" class="nav-link" href="#">
-                    <!--<span data-feather="file"></span>-->Cierre Pedidos Woe
+                    <fa-icon [icon]="faFileAlt" class="me-2"></fa-icon> Cierre Pedidos Woe
                 </a>
             </li>
-            <li class="nav-item" *ngIf="roleGuard.canActivate()">
-                <a routerLink="/home/products" routerLinkActive="active" class="nav-link" href="#">
-                    <!--<span data-feather="file"></span>-->Articulos Woe
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#collapseExample" data-bs-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                    <fa-icon [icon]="faThList" class="me-2"></fa-icon>
+                    <span>Articulos</span>
                 </a>
+                <div id="collapseExample" class="collapse">
+                    <ul class="nav flex-column">
+                        <li class="nav-item ms-3" *ngIf="roleGuard.canActivate()">
+                            <a routerLink="/home/products" routerLinkActive="active" class="nav-link" href="#">
+                                <fa-icon [icon]="faOutDent" class="me-2"></fa-icon>Articulos Woe
+                            </a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a routerLink="/home/offers" routerLinkActive="active" class="nav-link" href="#">
+                                <fa-icon [icon]="faFireAlt" class="me-2"></fa-icon>Ofertas Wao</a>
+                        </li>
+                    </ul>
+                </div>
             </li>
+
+
         </ul>
     </div>
 </nav>

@@ -4,6 +4,7 @@ import { ProductService } from '../../services/product.service';
 import { faTimesCircle, faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 import { Product } from '../../models/productModel';
 import Swal from 'sweetalert2';
+import { UserService } from 'src/app/services/user.service';
 
 /**
  * Componente Products.
@@ -38,17 +39,23 @@ export class ProductsComponent implements OnInit {
   show: boolean = false;
   /** Valor por defecto FALSE, se usa para mostrar el Skeleton Loading */
   loader: boolean = false;
+
+  noData: boolean = false;
+
   /**
   * Constructor, recibe como parametro el FormBuilder y nuestro servicio ProductService
   * @param {FormBuilder} fb
   * @param {ProductService} productService 
   */
-  constructor(private fb: FormBuilder, private productService: ProductService) {
+  constructor(private fb: FormBuilder, private productService: ProductService, private userService: UserService) {
     this.createForm();
   }
   /** Metodo que se ejecuta cuando carga la página */
   ngOnInit(): void {
     console.log('Products Component');
+    if(!this.userService.getCookie()){
+      window.location.reload();
+    }
   }
 
   // Getters Validators
@@ -85,12 +92,17 @@ export class ProductsComponent implements OnInit {
     }
 
     this.product = formValues.value;
-
+    
     this.productService.getProduct(this.product).subscribe({
       next: (resp) => {
         this.response = resp
-        this.show = true;
         this.loader = false;
+        if(this.response.data.length > 0){
+          this.show = true;
+        }else{
+          this.noData = true;
+          this.errorMsg = `El codigo ${this.product.codigoarticulo} no existe!!`;
+        }
       },
       error: (err) => {
         console.log(err.error.error.sqlMsg);

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 /**
  * HeaderComponent
@@ -18,13 +19,30 @@ export class HeaderComponent implements OnInit {
    * informacion del usuario y mostrar el Avatar
    * @param userService 
    */
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
   
   /**
    * Inicio del ciclo de vida del Componente
    */
   ngOnInit(): void {
-    this.respUserInfo = this.userService.infoUser();
+    this.respUserInfo = this.userService.infoUser();/* 
+    let session_id = JSON.parse(this.userService.getCookie());
+    console.log(session_id.session_id);
+    console.log(this.respUserInfo); */
   }
+
+  logout(){
+    this.userService.logout().subscribe({
+      next: (resp) => {
+        this.userService.deleteCookie();
+        this.router.navigateByUrl('/login');
+        //window.location.reload();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
 
 }

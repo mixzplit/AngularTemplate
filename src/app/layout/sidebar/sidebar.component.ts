@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faFileAlt, faFireAlt, faOutdent, faTachometerAlt, faThList } from '@fortawesome/free-solid-svg-icons';
 import { RoleGuard } from '../../guards/role.guard';
 
 /**
@@ -10,6 +11,11 @@ import { RoleGuard } from '../../guards/role.guard';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
+  faThList = faThList
+  faTachometerAlt = faTachometerAlt;
+  faFileAlt = faFileAlt;
+  faOutDent = faOutdent;
+  faFireAlt = faFireAlt;
   /**
    * COnstructor, recibe el RoleGuard para validar el acceso 
    * a menus segun el rol del usuario

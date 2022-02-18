@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { UsuarioModel } from '../../models/usuarioModel';
 import { UserService } from '../../services/user.service';
 
@@ -56,10 +57,20 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Conectando...',
+      showConfirmButton: false,
+      //timer: 1500
+    });
+    Swal.showLoading();
+
     this.auth.authUser(this.user).subscribe({
       next: (resp) => { 
         this.response = resp
         console.log(this.response);
+        Swal.close();
         this.router.navigateByUrl('/home/dashboard');
       },
       error: (err) => { 

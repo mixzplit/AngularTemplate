@@ -5,6 +5,7 @@ import { Chart, LinearScale, BarController, CategoryScale, BarElement, LineContr
 //import * as internal from 'stream';
 import { map } from 'rxjs';
 import { faOtter } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from 'src/app/services/user.service';
 Chart.register(LinearScale, BarController, CategoryScale, BarElement, 
                LineController, PointElement, LineElement, Legend, Tooltip);
 /**
@@ -21,7 +22,7 @@ export class DashboardComponent implements OnInit {
   /** Guarda la informacion de elemento de la vista */
   canvas: any;
   /** Guarda el contexto de la vista */
-  ctx: any;
+  ctx!: any;
   /** Este sera el valor que asignaremos al elemento canvas de la vista */
   @ViewChild('mychart') mychart: any;
   chartjs: any;
@@ -36,13 +37,16 @@ export class DashboardComponent implements OnInit {
   offers: any;
 
   /** Constructor */
-  constructor(private socket: SocketsService) { 
+  constructor(private socket: SocketsService, private userService: UserService) { 
     console.log('constructor');
   }
   
   /** OnInit */
   ngOnInit(): void {
     console.log('Dashboard');
+    if(!this.userService.getCookie()){
+      window.location.reload();
+    }
 
     this.socket.conectado();
   
@@ -77,8 +81,9 @@ export class DashboardComponent implements OnInit {
       if(this.chartjs){
         this.chartjs.destroy();
       }
-
-      this.chartjs = new Chart( 'myChart',{
+      const canvas = <HTMLCanvasElement> document.getElementById('myChart');
+      this.ctx = canvas.getContext('2d');
+      this.chartjs = new Chart(this.ctx,{
           type:'bar',
           data:dataVar,
           options:{

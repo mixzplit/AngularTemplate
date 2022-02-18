@@ -5,6 +5,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
 import { AvatarModule } from 'ngx-avatars';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AvatarModule } from 'ngx-avatars';
   imports: [
     CommonModule,
     AvatarModule,
+    FontAwesomeModule,
     RouterModule.forChild([])
   ],
   exports: [

@@ -50,6 +50,18 @@ export class UserService {
       );
   }// end authUser
 
+  logout() {
+    return this.http.get(`${environment.SERVER_TW}/api/auth/logout`)
+        .pipe(
+            map( resp => {
+              this.deleteCookie();
+              return resp;
+            })
+        );
+  }
+
+
+
   /**
    * Metodo que obtiene la informacion del usuario de la cookie
    * generada al iniciar sesion
@@ -88,4 +100,11 @@ export class UserService {
     return this.cookie.get('session_id');
   }
   
+  /**
+   * Borrar Cookie de Session
+   */
+  deleteCookie(){
+    return this.cookie.delete('session_id');
+  }
+
 }

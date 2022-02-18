@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 import { CierrePedidosService } from '../../services/cierre-pedidos.service';
 
 /**
@@ -41,12 +42,15 @@ export class CierrePedidosComponent implements OnInit {
    * @param datepipe 
    */
   constructor( private fb: FormBuilder, private cierrePedidos: CierrePedidosService,
-              public datepipe: DatePipe) {
+              public datepipe: DatePipe, private userService: UserService) {
     this.createForm();
   }
   /** Metodo que se ejecuta a llamar al componente */
   ngOnInit(): void {
     console.log('CierrePedidosWOE');
+    if(!this.userService.getCookie()){
+      window.location.reload();
+    }
   }
   
   /**
