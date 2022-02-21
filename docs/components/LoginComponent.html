@@ -191,7 +191,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/login/login.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/pages/login/login.component.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -272,8 +272,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="53"
-                            class="link-to-prism">src/app/pages/login/login.component.ts:53</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">src/app/pages/login/login.component.ts:54</a></div>
                 </td>
             </tr>
 
@@ -346,8 +346,8 @@ authUser()</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">src/app/pages/login/login.component.ts:39</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/app/pages/login/login.component.ts:40</a></div>
                 </td>
             </tr>
 
@@ -397,7 +397,7 @@ si es true no pide las credenciales de acceso.   *</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/login/login.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/pages/login/login.component.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -434,7 +434,7 @@ si es true no pide las credenciales de acceso.   *</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/pages/login/login.component.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/pages/login/login.component.ts:22</a></div>
                         </td>
                     </tr>
 
@@ -471,7 +471,7 @@ si es true no pide las credenciales de acceso.   *</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/pages/login/login.component.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/pages/login/login.component.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -493,6 +493,7 @@ si es true no pide las credenciales de acceso.   *</p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { NgForm } from &#x27;@angular/forms&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
+import Swal from &#x27;sweetalert2&#x27;;
 import { UsuarioModel } from &#x27;../../models/usuarioModel&#x27;;
 import { UserService } from &#x27;../../services/user.service&#x27;;
 
@@ -548,15 +549,26 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    Swal.fire({
+      position: &#x27;top-end&#x27;,
+      icon: &#x27;success&#x27;,
+      title: &#x27;Conectando...&#x27;,
+      showConfirmButton: false,
+      //timer: 1500
+    });
+    Swal.showLoading();
+
     this.auth.authUser(this.user).subscribe({
       next: (resp) &#x3D;&gt; { 
         this.response &#x3D; resp
         console.log(this.response);
+        Swal.close();
         this.router.navigateByUrl(&#x27;/home/dashboard&#x27;);
       },
       error: (err) &#x3D;&gt; { 
         console.log(err);
         this.errorMsg &#x3D; err.error.err.message
+        Swal.fire(this.errorMsg, &#x27;&#x27;, &#x27;error&#x27;)
       }
     });
 
@@ -638,7 +650,7 @@ export class LoginComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><main>    <div class="container-fluid">        <div class="row">            <div class="col-sm-6 login-section-wrapper">                <div class="brand-wrapper">                    <img src="assets/images/logo.svg" alt="logo" class="logo">                </div>                <div class="login-wrapper my-auto">                    <h1 class="login-title">Log in SSP</h1>                    <form (ngSubmit)="login( fLogin )" #fLogin="ngForm">                        <div class="form-group">                            <label for="user">Usuario</label>                            <input [(ngModel)]="user.username" name="username" id="username" type="text" class="form-control" placeholder="ufp020" required>                            <span *ngIf="fLogin.submitted && fLogin.controls?.[\'username\']?.errors" class="text-danger">Usuario es obligatorio</span>                        </div>                        <div class="form-group mb-4">                            <label for="password">Password</label>                            <input [(ngModel)]="user.password" type="password" name="password" id="password" class="form-control" placeholder="enter your passsword" required>                            <span *ngIf="fLogin.submitted && fLogin.controls?.[\'password\']?.errors" class="text-danger">La contraseña es obligatoria</span>                        </div>                        <input name="login" id="login" class="btn btn-block login-btn" type="submit" value="Ingresar">                    </form>                    <!--<a href="#!" class="forgot-password-link">Forgot password?</a>                    <p class="login-wrapper-footer-text">Don\'t have an account? <a href="#!" class="text-reset">Register here</a></p>-->                </div>                <div class="alert alert-danger mt-3" role="alert" *ngIf="errorMsg !== \'\'">                    <span class="text-danger">{{ errorMsg }}</span>                </div>            </div>            <div class="col-sm-6 px-0 d-none d-sm-block">                <img src="assets/images/comic.jpg" alt="login image" class="login-img">            </div>        </div>    </div></main></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CierrePedidosComponent', 'selector': 'app-cierre-pedidos'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DatepickerPopupComponent', 'selector': 'app-datepicker-popup'},{'name': 'FullLayoutComponent', 'selector': 'app-full-layout'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'InputTextComponent', 'selector': 'app-input-text'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ProductsComponent', 'selector': 'app-products'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CierrePedidosComponent', 'selector': 'app-cierre-pedidos'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DatepickerPopupComponent', 'selector': 'app-datepicker-popup'},{'name': 'DocumentosComponent', 'selector': 'app-documentos'},{'name': 'FullLayoutComponent', 'selector': 'app-full-layout'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'InputTextComponent', 'selector': 'app-input-text'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'OffersComponent', 'selector': 'app-offers'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'ProductsComponent', 'selector': 'app-products'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
 </script>

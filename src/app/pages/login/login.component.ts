@@ -76,6 +76,7 @@ export class LoginComponent implements OnInit {
       error: (err) => { 
         console.log(err);
         this.errorMsg = err.error.err.message
+        Swal.fire(this.errorMsg, '', 'error')
       }
     });
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 /**
  * HeaderComponent
@@ -30,12 +31,25 @@ export class HeaderComponent implements OnInit {
     console.log(session_id.session_id);
     console.log(this.respUserInfo); */
   }
-
+  
+  /**
+   * Destruimos la session y redireccionamos a la pagina principal
+   */
   logout(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: 'Desconectando...',
+      showConfirmButton: false,
+      //timer: 1500
+    });
+    Swal.showLoading();
+
     this.userService.logout().subscribe({
       next: (resp) => {
         this.userService.deleteCookie();
-        this.router.navigateByUrl('/login');
+        Swal.close();
+        this.router.navigateByUrl('/');
         //window.location.reload();
       },
       error: (err) => {

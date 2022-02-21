@@ -39,7 +39,7 @@ export class ProductsComponent implements OnInit {
   show: boolean = false;
   /** Valor por defecto FALSE, se usa para mostrar el Skeleton Loading */
   loader: boolean = false;
-
+  /** Valor por defecto FALSE, se usa para mostrar un mensaje cuando la API no devuelve informacion */
   noData: boolean = false;
 
   /**

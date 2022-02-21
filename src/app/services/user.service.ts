@@ -50,6 +50,11 @@ export class UserService {
       );
   }// end authUser
 
+  /**
+   * Metodo que conecta al endpoint /api/auth/logout
+   * Destruye la Cookie de Session 
+   * @returns void
+   */
   logout() {
     return this.http.get(`${environment.SERVER_TW}/api/auth/logout`)
         .pipe(
@@ -59,8 +64,6 @@ export class UserService {
             })
         );
   }
-
-
 
   /**
    * Metodo que obtiene la informacion del usuario de la cookie

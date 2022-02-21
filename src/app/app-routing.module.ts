@@ -6,7 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent }, // login
   { path: 'home', 
     component: FullLayoutComponent, 
     children: [

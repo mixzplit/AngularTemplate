@@ -157,6 +157,9 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
                                 <a href="#ngOnInit" >ngOnInit</a>
                             </li>
                         </ul>
@@ -177,12 +180,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(userService: <a href="../injectables/UserService.html" target="_self">UserService</a>)</code>
+<code>constructor(userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/layout/header/header.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/layout/header/header.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -214,6 +217,18 @@ informacion del usuario y mostrar el Avatar</p>
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -236,6 +251,45 @@ informacion del usuario y mostrar el Avatar</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/app/layout/header/header.component.ts:38</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Destruimos la session y redireccionamos a la pagina principal</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="ngOnInit"></a>
                     <span class="name">
                         <span ><b>ngOnInit</b></span>
@@ -252,8 +306,8 @@ informacion del usuario y mostrar el Avatar</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="26"
-                            class="link-to-prism">src/app/layout/header/header.component.ts:26</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/app/layout/header/header.component.ts:28</a></div>
                 </td>
             </tr>
 
@@ -296,7 +350,7 @@ informacion del usuario y mostrar el Avatar</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/layout/header/header.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/layout/header/header.component.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -317,6 +371,8 @@ informacion del usuario y mostrar el Avatar</p>
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { UserService } from &#x27;src/app/services/user.service&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import Swal from &#x27;sweetalert2&#x27;;
 
 /**
  * HeaderComponent
@@ -335,14 +391,44 @@ export class HeaderComponent implements OnInit {
    * informacion del usuario y mostrar el Avatar
    * @param userService 
    */
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
   
   /**
    * Inicio del ciclo de vida del Componente
    */
   ngOnInit(): void {
-    this.respUserInfo &#x3D; this.userService.infoUser();
+    this.respUserInfo &#x3D; this.userService.infoUser();/* 
+    let session_id &#x3D; JSON.parse(this.userService.getCookie());
+    console.log(session_id.session_id);
+    console.log(this.respUserInfo); */
   }
+  
+  /**
+   * Destruimos la session y redireccionamos a la pagina principal
+   */
+  logout(){
+    Swal.fire({
+      position: &#x27;top-end&#x27;,
+      icon: &#x27;error&#x27;,
+      title: &#x27;Desconectando...&#x27;,
+      showConfirmButton: false,
+      //timer: 1500
+    });
+    Swal.showLoading();
+
+    this.userService.logout().subscribe({
+      next: (resp) &#x3D;&gt; {
+        this.userService.deleteCookie();
+        Swal.close();
+        this.router.navigateByUrl(&#x27;/&#x27;);
+        //window.location.reload();
+      },
+      error: (err) &#x3D;&gt; {
+        console.log(err);
+      }
+    });
+  }
+
 
 }
 </code></pre>
@@ -361,13 +447,13 @@ export class HeaderComponent implements OnInit {
             &lt;ngx-avatars name&#x3D;&quot;{{respUserInfo.name}} {{respUserInfo.lastName}}&quot; size&#x3D;&quot;32&quot;&gt;&lt;/ngx-avatars&gt;
         &lt;/a&gt;
         &lt;ul class&#x3D;&quot;dropdown-menu dropdown-menu-end shadow&quot; aria-labelledby&#x3D;&quot;dropdownUser2&quot;&gt;
-            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;New project...&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; routerLink&#x3D;&quot;/home/documentos&quot;&gt;Documentos&lt;/a&gt;&lt;/li&gt;
             &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Settings&lt;/a&gt;&lt;/li&gt;
             &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; routerLink&#x3D;&quot;/home/profile&quot;&gt;Profile&lt;/a&gt;&lt;/li&gt;
             &lt;li&gt;
                 &lt;hr class&#x3D;&quot;dropdown-divider&quot;&gt;
             &lt;/li&gt;
-            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Sign out&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; (click)&#x3D;&quot;logout()&quot;&gt;Sign out&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
 
     &lt;/div&gt;
@@ -411,8 +497,8 @@ export class HeaderComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Company name</a>    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">            <span class="navbar-toggler-icon"></span>    </button>    <div class=" flex-shrink-0 dropdown">        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle avatar" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">            <!--<img src="https://via.placeholder.com/28?text=!" alt="user" width="32" height="32" class="rounded-circle">-->            <ngx-avatars name="{{respUserInfo.name}} {{respUserInfo.lastName}}" size="32"></ngx-avatars>        </a>        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownUser2">            <li><a class="dropdown-item" href="#">New project...</a></li>            <li><a class="dropdown-item" href="#">Settings</a></li>            <li><a class="dropdown-item" routerLink="/home/profile">Profile</a></li>            <li>                <hr class="dropdown-divider">            </li>            <li><a class="dropdown-item" href="#">Sign out</a></li>        </ul>    </div></header></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CierrePedidosComponent', 'selector': 'app-cierre-pedidos'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DatepickerPopupComponent', 'selector': 'app-datepicker-popup'},{'name': 'FullLayoutComponent', 'selector': 'app-full-layout'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'InputTextComponent', 'selector': 'app-input-text'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ProductsComponent', 'selector': 'app-products'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'}];
+        var COMPONENT_TEMPLATE = '<div><header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Company name</a>    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">            <span class="navbar-toggler-icon"></span>    </button>    <div class=" flex-shrink-0 dropdown">        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle avatar" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">            <!--<img src="https://via.placeholder.com/28?text=!" alt="user" width="32" height="32" class="rounded-circle">-->            <ngx-avatars name="{{respUserInfo.name}} {{respUserInfo.lastName}}" size="32"></ngx-avatars>        </a>        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownUser2">            <li><a class="dropdown-item" routerLink="/home/documentos">Documentos</a></li>            <li><a class="dropdown-item" href="#">Settings</a></li>            <li><a class="dropdown-item" routerLink="/home/profile">Profile</a></li>            <li>                <hr class="dropdown-divider">            </li>            <li><a class="dropdown-item" (click)="logout()">Sign out</a></li>        </ul>    </div></header></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CierrePedidosComponent', 'selector': 'app-cierre-pedidos'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DatepickerPopupComponent', 'selector': 'app-datepicker-popup'},{'name': 'DocumentosComponent', 'selector': 'app-documentos'},{'name': 'FullLayoutComponent', 'selector': 'app-full-layout'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'InputTextComponent', 'selector': 'app-input-text'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'OffersComponent', 'selector': 'app-offers'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'ProductsComponent', 'selector': 'app-products'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HeaderComponent'};
 </script>
