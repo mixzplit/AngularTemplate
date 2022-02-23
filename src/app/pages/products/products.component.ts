@@ -52,10 +52,10 @@ export class ProductsComponent implements OnInit {
   }
   /** Metodo que se ejecuta cuando carga la página */
   ngOnInit(): void {
-    console.log('Products Component');
-    if(!this.userService.getCookie()){
+    //console.log('Products Component');
+    /* if(!this.userService.getCookie()){
       window.location.reload();
-    }
+    } */
   }
 
   // Getters Validators

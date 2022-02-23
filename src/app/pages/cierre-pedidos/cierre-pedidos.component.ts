@@ -47,10 +47,9 @@ export class CierrePedidosComponent implements OnInit {
   }
   /** Metodo que se ejecuta a llamar al componente */
   ngOnInit(): void {
-    console.log('CierrePedidosWOE');
-    if(!this.userService.getCookie()){
+    /* if(!this.userService.getCookie()){
       window.location.reload();
-    }
+    } */
   }
   
   /**

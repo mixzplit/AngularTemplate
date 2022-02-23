@@ -56,6 +56,14 @@
                             "vendorChunk": true,
                             "extractLicenses": false,
                             "sourceMap": true,
+                            "namedChunks": true
+                        },
+                        "dev": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
                             "namedChunks": true,
                             "fileReplacements": [{
                                 "replace": "src/environments/environment.ts",
@@ -73,6 +81,9 @@
                         },
                         "development": {
                             "browserTarget": "SSP2:build:development"
+                        },
+                        "dev": {
+                            "browserTarget": "SSP2:build:dev"
                         }
                     },
                     "defaultConfiguration": "development"

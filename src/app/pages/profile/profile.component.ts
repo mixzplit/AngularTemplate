@@ -27,10 +27,10 @@ export class ProfileComponent implements OnInit {
    */
   ngOnInit(): void {
     console.log('ProfileComponents');
-    this.getUserInfo();
-    if(!this.auth.getCookie()){
+    /* if(!this.auth.getCookie()){
       window.location.reload();
-    }
+    } */
+    this.getUserInfo();
   }
   
   /**

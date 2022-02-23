@@ -26,6 +26,9 @@ export class RoleGuard implements CanActivate {
    * @returns True o False
    */
   canActivate(): boolean {
+    if(!this.auth.getCookie()){
+      window.location.reload();
+    }
     this.respUserInfo = this.auth.infoUser();
     const [ cn ] = this.respUserInfo.memberOf.split(',')
     if ( cn === 'CN=gadmin' ){

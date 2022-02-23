@@ -26,8 +26,8 @@ export class HeaderComponent implements OnInit {
    * Inicio del ciclo de vida del Componente
    */
   ngOnInit(): void {
-    this.respUserInfo = this.userService.infoUser();/* 
-    let session_id = JSON.parse(this.userService.getCookie());
+    this.respUserInfo = this.userService.infoUser();
+    /* let session_id = JSON.parse(this.userService.getCookie());
     console.log(session_id.session_id);
     console.log(this.respUserInfo); */
   }

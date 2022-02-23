@@ -57,9 +57,9 @@ export class OffersComponent implements OnInit {
    * es activa.
    */
   ngOnInit(): void {
-    if(!this.userService.getCookie()){
+    /* if(!this.userService.getCookie()){
       window.location.reload();
-    }
+    } */
   }
 
   // Getters Validators

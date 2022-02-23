@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
       { path: 'products', loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule), canActivate: [RoleGuard] },
       { path: 'documentos', loadChildren: () => import('./pages/documentos/documentos.module').then(m => m.DocumentosModule) },
-      { path: 'offers', loadChildren: () => import('./pages/offers/offers.module').then(m => m.OffersModule) },
+      { path: 'offers', loadChildren: () => import('./pages/offers/offers.module').then(m => m.OffersModule), canActivate: [RoleGuard] },
     ],
     canActivate: [AuthGuard]
   },

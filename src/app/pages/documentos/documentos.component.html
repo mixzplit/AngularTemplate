@@ -7,13 +7,14 @@
     <!-- Border Left Utilities -->
     <div class="col-lg-6">
 
-        <div class="card mb-4 py-3 border-left-primary">
+        <div *ngFor="let item of response.files; index as i" class="card mb-4 py-3 border-left-primary">
             <div class="card-body">
-                .border-left-primary
+                <a href="{{item.url}}">{{item.name}}</a>
+
             </div>
         </div>
 
-        <div class="card mb-4 py-3 border-left-secondary">
+        <!--         <div class="card mb-4 py-3 border-left-secondary">
             <div class="card-body">
                 .border-left-secondary
             </div>
@@ -47,12 +48,12 @@
             <div class="card-body">
                 .border-left-dark
             </div>
-        </div>
+        </div> -->
 
     </div>
 
     <!-- Border Bottom Utilities -->
-    <div class="col-lg-6">
+    <!--     <div class="col-lg-6">
 
         <div class="card mb-4 py-3 border-bottom-primary">
             <div class="card-body">
@@ -96,6 +97,6 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
 
 </div>
