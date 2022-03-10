@@ -1,0 +1,23 @@
+<div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" class="table table-hover row-border hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Nombre Usuario</th>
+                <th>E-Mail</th>
+                <th>Zona</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let usuario of response.data">
+                <td>{{ usuario.userid }}</td>
+                <td>{{ usuario.usuario }}</td>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.mail }}</td>
+                <td>{{ usuario.zona }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- <p>{{ response | json }}</p> -->

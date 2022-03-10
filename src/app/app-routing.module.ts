@@ -19,6 +19,13 @@ const routes: Routes = [
     ],
     canActivate: [AuthGuard]
   },
+  { path: 'sip',
+    component: FullLayoutComponent,
+    children: [
+      { path: 'listarUsuarios', loadChildren: () => import('./pages/sip/listar-usuarios/listar-usuarios.module').then(m => m.ListarUsuariosModule) },
+      { path: 'crearUsuarios', loadChildren: () => import('./pages/sip/crear-usuarios/crear-usuarios.module').then(m => m.CrearUsuariosModule) },
+    ]
+  },
   { path: 'pageNotFound', loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
   { path: '**', pathMatch: 'full', redirectTo: '/pageNotFound' }
 ];

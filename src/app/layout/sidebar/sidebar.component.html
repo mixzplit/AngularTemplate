@@ -33,6 +33,26 @@
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#collapseSip" data-bs-toggle="collapse" data-target="#collapseSip" aria-expanded="true" aria-controls="collapseSip">
+                    <fa-icon [icon]="faThList" class="me-2"></fa-icon>
+                    <span>Procesos SIP</span>
+                </a>
+                <div id="collapseSip" class="collapse">
+                    <ul class="nav flex-column">
+                        <li class="nav-item ms-3" *ngIf="roleGuard.canActivate()">
+                            <a routerLink="/sip/listarUsuarios" routerLinkActive="active" class="nav-link" href="#">
+                                <fa-icon [icon]="faOutDent" class="me-2"></fa-icon>Listar Usuarios
+                            </a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a routerLink="/sip/crearUsuarios" routerLinkActive="active" class="nav-link" href="#">
+                                <fa-icon [icon]="faFireAlt" class="me-2"></fa-icon>Crear Usuario</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
 
         </ul>
     </div>
