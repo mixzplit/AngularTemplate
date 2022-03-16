@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, VERSION } from '@angular/core';
 
 /**
  * Componente Principal
@@ -11,4 +11,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   /** Titulo de la Página */
   title = 'SSP2';
+  version = VERSION.full;
 }

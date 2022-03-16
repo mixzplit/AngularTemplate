@@ -1,1 +1,75 @@
-<p>crear-usuarios works!</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ title }}</h1>
+</div>
+
+<form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off">
+
+    <div class="row">
+        <!-- <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingUserId" placeholder="User ID" formControlName="userid">
+                <label for="floatingAño">User ID</label>
+            </div>
+        </div> -->
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingNombreApellido" placeholder="Nombre y Apellido" formControlName="nombre" [class.is-invalid]="nombreApellidoInvalid">
+                <label for="floatingNombreApellido">Nombre y Apellido</label>
+                <div *ngIf="nombreApellidoInvalid">
+                    <div *ngIf="form.controls['nombre'].errors?.['required']" class="text-danger">Nombre y Apellido es obligatorio</div>
+                    <div *ngIf="form.controls['nombre'].errors?.['pattern']" class="text-danger">Nombre y Apellido solo debe contener letras</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingCampaña" placeholder="Usuario, example: ujp001" formControlName="usuario" [class.is-invalid]="usernameInvalid">
+                <label for="floatingUsername">Nombre de Usuario</label>
+                <span *ngIf="usernameInvalid" class="text-danger">Nombre de Usuario es obligatorio</span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingGrupo" placeholder="Grupo, example: 1, 2 ó 3" formControlName="grupo" [class.is-invalid]="grupoInvalid">
+                <label for="floatingGrupo">Grupo</label>
+                <!-- <span *ngIf="grupoInvalid" class="text-danger">Grupo es obligatorio</span> -->
+                <div *ngIf="grupoInvalid">
+                    <div *ngIf="form.controls['grupo'].errors?.['required']" class="text-danger">Grupo es obligatorio</div>
+                    <div *ngIf="form.controls['grupo'].errors?.['maxlength'] || form.controls['grupo'].errors?.['minlength'] " class="text-danger">Grupo debe ser 1 número</div>
+                    <div *ngIf="form.controls['grupo'].errors?.['pattern']" class="text-danger">Grupo solo debe contener números</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingZona" placeholder="Zona" formControlName="zona" [class.is-invalid]="zonaInvalid">
+                <label for="floatingZona">Zona</label>
+                <div *ngIf="zonaInvalid">
+                    <div *ngIf="form.controls['zona'].errors?.['required']" class="text-danger">Zona es obligatorio</div>
+                    <div *ngIf="form.controls['zona'].errors?.['maxlength'] || form.controls['zona'].errors?.['minlength'] " class="text-danger">Zona debe contener entre 2 y 3 números</div>
+                    <div *ngIf="form.controls['zona'].errors?.['pattern']" class="text-danger">Zona solo debe contener números</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingEmail" placeholder="Email, example: 1, 2 ó 3" formControlName="email" [class.is-invalid]="emailInvalid">
+                <label for="floatingEmail">Email</label>
+                <div *ngIf="emailInvalid">
+                    <div *ngIf="form.controls['email'].errors?.['required']" class="text-danger">Email es obligatorio</div>
+                    <div *ngIf="form.controls['email'].errors?.['pattern']" class="text-danger">Email no es valido</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Submit-->
+    <input name="enviar" id="enviar" class="btn btn-primary" type="submit" value="Enviar">
+
+</form>

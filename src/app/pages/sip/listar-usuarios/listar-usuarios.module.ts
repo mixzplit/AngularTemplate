@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ListarUsuariosRoutingModule } from './listar-usuarios-routing.module';
 import { ListarUsuariosComponent } from './listar-usuarios.component';
 import { DataTablesModule } from 'angular-datatables';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { DataTablesModule } from 'angular-datatables';
   imports: [
     CommonModule,
     DataTablesModule,
+    FontAwesomeModule,
     ListarUsuariosRoutingModule,
   ]
 })

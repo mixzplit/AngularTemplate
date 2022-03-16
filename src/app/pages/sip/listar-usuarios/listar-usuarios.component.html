@@ -1,5 +1,9 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ title }}</h1>
+</div>
+
 <div class="table-responsive">
-    <table datatable [dtOptions]="dtOptions" class="table table-hover row-border hover">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover row-border hover">
         <thead>
             <tr>
                 <th>ID</th>
@@ -7,6 +11,7 @@
                 <th>Nombre Usuario</th>
                 <th>E-Mail</th>
                 <th>Zona</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +21,10 @@
                 <td>{{ usuario.nombre }}</td>
                 <td>{{ usuario.mail }}</td>
                 <td>{{ usuario.zona }}</td>
+                <td>
+                    <fa-icon (click)="onDelete(usuario)" [icon]="faTimesCircle" class="ms-1 me-3 badge bg-danger "></fa-icon>
+                    <fa-icon (click)="onUpdate(usuario)" [icon]="faModify " class="badge bg-warning "></fa-icon>
+                </td>
             </tr>
         </tbody>
     </table>

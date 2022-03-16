@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faFileAlt, faFireAlt, faOutdent, faTachometerAlt, faThList } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faFireAlt, faOutdent, faTachometerAlt, faThList, faUserPlus, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { RoleGuard } from '../../guards/role.guard';
 
 /**
@@ -21,6 +21,10 @@ export class SidebarComponent implements OnInit {
   faOutDent = faOutdent;
   /** FontAwesome Icon para el Sidebar Menu */
   faFireAlt = faFireAlt;
+  
+  faUsers = faUsers;
+  faUserPlus = faUserPlus;
+
   /**
    * Constructor, recibe el RoleGuard para validar el acceso 
    * a menus segun el rol del usuario
