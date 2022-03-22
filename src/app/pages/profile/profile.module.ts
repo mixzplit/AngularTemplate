@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 import { AvatarModule } from 'ngx-avatars';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { AvatarModule } from 'ngx-avatars';
   imports: [
     CommonModule,
     ProfileRoutingModule,
-    AvatarModule
+    AvatarModule,
+    FontAwesomeModule
   ]
 })
 export class ProfileModule { }

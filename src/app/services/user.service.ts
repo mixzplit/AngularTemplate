@@ -110,4 +110,16 @@ export class UserService {
     return this.cookie.delete('session_id');
   }
 
+  /**
+   * Conexion a otro endpoint solo para obtener las versiones
+   */
+  getNodeVersion(){
+    return this.http.get(`${environment.SERVER_TW}/api/versions/node`)
+    .pipe(
+        map( resp => {
+          return resp;
+        })
+    );      
+  }
+
 }

@@ -1,3 +1,4 @@
+//import { name, version } from '../../package.json';
 /**
  * This file can be replaced during build by using the `fileReplacements` array.
  * `ng build` replaces `environment.ts` with `environment.prod.ts`.
@@ -7,7 +8,9 @@
 
 export const environment = {
   production: false,
-  SERVER_TW: "http://localhost:8081" // "http://159.234.148.6:8081"
+  SERVER_TW: "http://localhost:8081", // "http://159.234.148.6:8081",
+  /* name,
+  version */
 };
 
 /*

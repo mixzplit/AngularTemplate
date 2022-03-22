@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, VERSION } from '@angular/core';
+import { faAngular, faNodeJs } from '@fortawesome/free-brands-svg-icons';
 import { UserService } from '../../services/user.service';
 
 /**
@@ -12,7 +13,12 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
+  // versiones
+  version = VERSION.full;
+  faAngular = faAngular;
+  faNode = faNodeJs;
+  response: any = {};
+  
   /** Guardamos la informacion de la respuesta parseada como objeto JSON */
   respUserInfo: any;
   /**
@@ -31,6 +37,7 @@ export class ProfileComponent implements OnInit {
       window.location.reload();
     } */
     this.getUserInfo();
+    this.getNodeVersion();
   }
   
   /**
@@ -39,6 +46,18 @@ export class ProfileComponent implements OnInit {
    */
   getUserInfo(){
     this.respUserInfo = this.auth.infoUser();
+  }
+
+  getNodeVersion(){
+    this.auth.getNodeVersion().subscribe({
+      next: resp => {
+        console.log(resp);
+        this.response = resp;
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
   }
 
 }
