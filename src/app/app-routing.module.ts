@@ -12,7 +12,6 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardModule)},
       { path: 'cierrePedidos', loadChildren: () => import('./pages/cierre-pedidos/cierre-pedidos.module').then( m => m.CierrePedidosModule), canActivate: [RoleGuard]},
-      { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
       { path: 'products', loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule), canActivate: [RoleGuard] },
       { path: 'offers', loadChildren: () => import('./pages/offers/offers.module').then(m => m.OffersModule), canActivate: [RoleGuard] },
     ],
@@ -25,7 +24,14 @@ const routes: Routes = [
       { path: 'crearUsuarios', loadChildren: () => import('./pages/sip/crear-usuarios/crear-usuarios.module').then(m => m.CrearUsuariosModule) },
     ]
   },
-  { path: 'documentos', loadChildren: () => import('./pages/documentos/documentos.module').then(m => m.DocumentosModule) },
+  {
+    path: 'profile',
+    component: FullLayoutComponent,
+    children: [
+      { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
+      { path: 'documentos', loadChildren: () => import('./pages/documentos/documentos.module').then(m => m.DocumentosModule) },
+    ]
+  },
   { path: 'pageNotFound', loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
   { path: '**', pathMatch: 'full', redirectTo: '/pageNotFound' }
 ];
