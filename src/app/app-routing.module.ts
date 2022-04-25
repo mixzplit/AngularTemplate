@@ -30,6 +30,7 @@ const routes: Routes = [
     children: [
       { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
       { path: 'documentos', loadChildren: () => import('./pages/documentos/documentos.module').then(m => m.DocumentosModule) },
+      { path: 'bashs', loadChildren: () => import('./pages/bashs/bashs.module').then(m => m.BashsModule) },
     ]
   },
   { path: 'pageNotFound', loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
