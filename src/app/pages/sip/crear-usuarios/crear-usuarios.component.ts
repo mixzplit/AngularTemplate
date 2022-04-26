@@ -89,7 +89,7 @@ export class CrearUsuariosComponent implements OnInit {
     this.sipService.getMaxIdUser().subscribe({
       next: (resp: any) =>{
         this.lastId = resp.data[0].max_id;
-        return this.lastId;
+        return this.lastId + 1;
       },
       error: (err) => {
         console.error(err);
