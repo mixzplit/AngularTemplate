@@ -155,11 +155,11 @@ export class CierrePedidosComponent implements OnInit {
                   Validators.minLength(4), 
                   Validators.maxLength(4), 
                   Validators.pattern(`^[0-9]*$`) ] ],
-      campania: ['', [Validators.required, Validators.maxLength(2)] ],
+      campania: ['', [Validators.required, Validators.maxLength(2), Validators.min(1), Validators.max(20)] ],
       zona: ['', [Validators.required, Validators.maxLength(3)] ],
       contrato: ['', Validators.required], //perfil
       fecha: ['', Validators.required],
-      serie: ['', Validators.required] // hora
+      serie: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]] // hora 00:00
     });
   }
 

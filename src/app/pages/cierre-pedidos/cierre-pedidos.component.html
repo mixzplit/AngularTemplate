@@ -30,7 +30,10 @@
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingCampaña" placeholder="Campaña" formControlName="campania" [class.is-invalid]="campaniaInvalid">
                 <label for="floatingCampaña">Campaña</label>
-                <span *ngIf="campaniaInvalid" class="text-danger">Campaña es obligatorio</span>
+                <div *ngIf="campaniaInvalid">
+                    <div *ngIf="form.controls['campania'].errors?.['required']" class="text-danger">Campaña es obligatorio</div>
+                    <div *ngIf="form.controls['campania'].errors?.['max'] || form.controls['campania'].errors?.['min'] " class="text-danger">La campaña de estar entre 1 y 20</div>
+                </div>
             </div>
         </div>
     </div>
@@ -71,7 +74,11 @@
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingHora" placeholder="Hora" formControlName="serie" [class.is-invalid]="horaInvalid">
                 <label for="floatingHora">Hora</label>
-                <span *ngIf="horaInvalid" class="text-danger">Hora es obligatorio</span>
+                <div *ngIf="horaInvalid">
+                    <div *ngIf="form.controls['serie'].errors?.['required']" class="text-danger">Hora es obligatorio</div>
+                    <div *ngIf="form.controls['serie'].errors?.['maxlength'] || form.controls['serie'].errors?.['minlength'] " class="text-danger">El Formato de la hora debe ser: 00:00</div>
+                </div>
+
             </div>
         </div>
 
