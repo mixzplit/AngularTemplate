@@ -22,6 +22,8 @@ const routes: Routes = [
     children: [
       { path: 'listarUsuarios', loadChildren: () => import('./pages/sip/listar-usuarios/listar-usuarios.module').then(m => m.ListarUsuariosModule) },
       { path: 'crearUsuarios', loadChildren: () => import('./pages/sip/crear-usuarios/crear-usuarios.module').then(m => m.CrearUsuariosModule) },
+      { path: 'crearGerenteZona', loadChildren: () => import('./pages/sip/crear-gerente-zona/crear-gerente-zona.module').then(m => m.CrearGerenteZonaModule) },
+      { path: 'listarGerentesZona', loadChildren: () => import('./pages/sip/listar-gerentes-zona/listar-gerentes-zona.module').then(m => m.ListarGerentesZonaModule) },
     ]
   },
   {

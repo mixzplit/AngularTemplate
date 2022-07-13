@@ -54,4 +54,27 @@ export class SipProcessService {
     return this.http.put(`${environment.SERVER_TW}/api/sipservices/${userid}`, userData );
   }
   
+  /**
+   * 
+   * @param users 
+   * @returns 
+   */
+  createGerenteZona(users: any){
+    console.log(users);
+    return this.http.post(`${environment.SERVER_TW}/api/sipservices/ngerentezona`, users)
+          .pipe( 
+            map( resp => {
+              return resp;
+            }) 
+          );
+  }
+
+  getGerentesZona(){
+    return this.http.get(`${environment.SERVER_TW}/api/sipservices/gerenteszona`).pipe(
+      map(resp => {
+        return resp;
+      }));
+  
+  }
+
 }

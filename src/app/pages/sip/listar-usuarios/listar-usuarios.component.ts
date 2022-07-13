@@ -102,11 +102,11 @@ export class ListarUsuariosComponent implements OnDestroy, OnInit {
    */
   onUpdate(usuario: any){
     Swal.fire({
-      title: 'Login Form',
-      html: `<input type="text" id="nombre" name="nombre" class="swal2-input" placeholder="Nombre" value="${usuario.usuario}">
-      <input type="text" id="email" class="swal2-input" placeholder="Email" value="${usuario.mail}">
-      <input type="text" id="zona" class="swal2-input" placeholder="Zona" value="${usuario.zona}">
-      <input type="text" id="id" class="swal2-input" placeholder="Id" value="${usuario.userid}">`,
+      title: 'Modificar Usuario',
+      html: `<label>Nombre</label><input type="text" id="nombre" name="nombre" class="swal2-input" placeholder="Nombre" value="${usuario.usuario}">
+      <br><label>Usuario</label><input type="text" id="email" class="swal2-input" placeholder="Email" value="${usuario.mail}">
+      <br><label style="padding-right:20px">Zona</label><input type="text" id="zona" class="swal2-input" placeholder="Zona" value="${usuario.zona}">
+      <br><label padding-right:0px>ID</label><input type="text" id="id" class="swal2-input" placeholder="Id" value="${usuario.userid}">`,
       confirmButtonText: 'Modificar',
       cancelButtonText: 'Cancelar',
       showCancelButton: true,

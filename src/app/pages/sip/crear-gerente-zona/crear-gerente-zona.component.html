@@ -1,0 +1,128 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ title }}</h1>
+</div>
+
+<form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off">
+
+    <div class="row">
+
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingZona" placeholder="Zona" formControlName="zona" [class.is-invalid]="zonaInvalid">
+                <label for="floatingZona">Zona</label>
+                <div *ngIf="zonaInvalid">
+                    <div *ngIf="form.controls['zona'].errors?.['required']" class="text-danger">Zona es obligatorio</div>
+                    <div *ngIf="form.controls['zona'].errors?.['maxlength'] || form.controls['zona'].errors?.['minlength'] " class="text-danger">Zona debe contener entre 2 y 3 números</div>
+                    <div *ngIf="form.controls['zona'].errors?.['pattern']" class="text-danger">Zona solo debe contener números</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="form-floating mb-3">
+                <select class="form-select" d="floatingSelect" aria-label="Floating label select example" formControlName="division" [class.is-invalid]="divisionInvalid">
+                  <option value="0" selected>Seleccione Division</option>
+                  <option value="1">Venus</option>
+                  <option value="2">Atenea</option>
+                  <option value="3">Afrodita</option>
+                  <option value="7">Zeus</option>
+                  <option value="8">Olimpo</option>
+                </select>
+                <label for="floatingSelect">Division</label>
+                <span *ngIf="divisionInvalid" class="text-danger">Seleccione una division</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingNombreApellido" placeholder="Nombre y Apellido" formControlName="nombre" [class.is-invalid]="nombreApellidoInvalid">
+                <label for="floatingNombreApellido">Nombre y Apellido</label>
+                <div *ngIf="nombreApellidoInvalid">
+                    <div *ngIf="form.controls['nombre'].errors?.['required']" class="text-danger">Nombre y Apellido es obligatorio</div>
+                    <div *ngIf="form.controls['nombre'].errors?.['pattern']" class="text-danger">Nombre y Apellido solo debe contener letras</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingCelular" placeholder="Celular, example: 54 9 11 22222222" formControlName="telefono1" [class.is-invalid]="tel1Invalid">
+                <label for="floatingCelular">Celular</label>
+                <div *ngIf="tel1Invalid">
+                    <div *ngIf="form.controls['telefono1'].errors?.['required']" class="text-danger">Celular es obligatorio</div>
+                    <div *ngIf="form.controls['telefono1'].errors?.['pattern']" class="text-danger">Celular solo debe contener números</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingTelefono2" placeholder="Telefono2, example: 54 9 11 22222222" formControlName="telefono2" [class.is-invalid]="tel2Invalid">
+                <label for="floatingTelefono2">Telefono</label>
+                <div *ngIf="tel2Invalid">
+                    <div *ngIf="form.controls['telefono2'].errors?.['required']" class="text-danger">Telefono es obligatorio</div>
+                    <div *ngIf="form.controls['telefono2'].errors?.['pattern']" class="text-danger">Telefono solo debe contener números</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingEmail" placeholder="Email, example: 1, 2 ó 3" formControlName="email" [class.is-invalid]="emailInvalid">
+                <label for="floatingEmail">Email</label>
+                <div *ngIf="emailInvalid">
+                    <div *ngIf="form.controls['email'].errors?.['required']" class="text-danger">Email es obligatorio</div>
+                    <div *ngIf="form.controls['email'].errors?.['pattern']" class="text-danger">Email no es valido</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingAnioCampania" placeholder="Año/Campaña Inicio, ej: 202206" formControlName="anioCampaniaInicio" [class.is-invalid]="anioCampaniaInvalid">
+                <label for="floatingAnioCampania">Año / Campaña Inicio</label>
+                <div *ngIf="anioCampaniaInvalid">
+                    <div *ngIf="form.controls['anioCampaniaInicio'].errors?.['required']" class="text-danger">Año/Campaña es obligatorio</div>
+                    <div *ngIf="form.controls['anioCampaniaInicio'].errors?.['maxlength'] || form.controls['anioCampaniaInicio'].errors?.['minlength'] " class="text-danger">Año/Campaña debe contener 6 números</div>
+                    <div *ngIf="form.controls['anioCampaniaInicio'].errors?.['pattern']" class="text-danger">Grupo solo debe contener números</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingDomicilio" placeholder="Domicilio" formControlName="domicilio" [class.is-invalid]="domicilioInvalid">
+                <label for="floatingDomicilio">Domicilio</label>
+                <div *ngIf="domicilioInvalid">
+                    <div *ngIf="form.controls['domicilio'].errors?.['required']" class="text-danger">Domicilio es obligatorio</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingLocalidad" placeholder="Localidad" formControlName="localidad" [class.is-invalid]="localidadInvalid">
+                <label for="floatingLocalidad">Localidad</label>
+                <div *ngIf="localidadInvalid">
+                    <div *ngIf="form.controls['localidad'].errors?.['required']" class="text-danger">Localidad es obligatorio</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingProvincia" placeholder="Provincia" formControlName="provincia" [class.is-invalid]="provinciaInvalid">
+                <label for="floatingProvincia">Provincia</label>
+                <div *ngIf="provinciaInvalid">
+                    <div *ngIf="form.controls['provincia'].errors?.['required']" class="text-danger">Provincia es obligatorio</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Submit-->
+    <input name="enviar" id="enviar" class="btn btn-primary" type="submit" value="Enviar">
+
+</form>

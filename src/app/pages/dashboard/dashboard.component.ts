@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit {
 
       for (const key in data) {
         this.chartjs.data['labels'].push(data[key].estado);
-        this.chartjs.data['datasets'][0].label = data[key].anio;
+        this.chartjs.data['datasets'][0].label = `${data[key].campania} / ${data[key].anio}`;
         this.chartjs.data['datasets'][0].data.push(data[key].cantidad);
       }
       this.chartjs.update();
