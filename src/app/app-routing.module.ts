@@ -13,6 +13,7 @@ const routes: Routes = [
       { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardModule)},
       { path: 'cierrePedidos', loadChildren: () => import('./pages/cierre-pedidos/cierre-pedidos.module').then( m => m.CierrePedidosModule), canActivate: [RoleGuard]},
       { path: 'products', loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule), canActivate: [RoleGuard] },
+      { path: 'productsDelete', loadChildren: () => import('./pages/productsdeletes/productsdeletes.module').then(m => m.ProductsdeletesModule), canActivate: [RoleGuard] },
       { path: 'offers', loadChildren: () => import('./pages/offers/offers.module').then(m => m.OffersModule), canActivate: [RoleGuard] },
     ],
     canActivate: [AuthGuard]
@@ -24,7 +25,8 @@ const routes: Routes = [
       { path: 'crearUsuarios', loadChildren: () => import('./pages/sip/crear-usuarios/crear-usuarios.module').then(m => m.CrearUsuariosModule) },
       { path: 'crearGerenteZona', loadChildren: () => import('./pages/sip/crear-gerente-zona/crear-gerente-zona.module').then(m => m.CrearGerenteZonaModule) },
       { path: 'listarGerentesZona', loadChildren: () => import('./pages/sip/listar-gerentes-zona/listar-gerentes-zona.module').then(m => m.ListarGerentesZonaModule) },
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile',
@@ -32,7 +34,8 @@ const routes: Routes = [
     children: [
       { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
       { path: 'documentos', loadChildren: () => import('./pages/documentos/documentos.module').then(m => m.DocumentosModule) },
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
   { path: 'pageNotFound', loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
   { path: '**', pathMatch: 'full', redirectTo: '/pageNotFound' }

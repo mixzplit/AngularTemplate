@@ -25,7 +25,14 @@
                                 <fa-icon [icon]="faOutDent" class="me-2"></fa-icon>Articulos Woe
                             </a>
                         </li>
-                        <li class="nav-item ms-3">
+
+                        <li class="nav-item ms-3" *ngIf="roleGuard.canActivate()">
+                            <a routerLink="/home/productsDelete" routerLinkActive="active" class="nav-link" href="#">
+                                <fa-icon [icon]="faOutDent" class="me-2"></fa-icon>Articulos Eliminados Woe
+                            </a>
+                        </li>
+
+                        <li class="nav-item ms-3" *ngIf="roleGuard.canActivate()">
                             <a routerLink="/home/offers" routerLinkActive="active" class="nav-link" href="#">
                                 <fa-icon [icon]="faFireAlt" class="me-2"></fa-icon>Ofertas Wao</a>
                         </li>

@@ -8,9 +8,10 @@ import { Product } from '../models/productModel';
  * Servicio ProductService.
  * 
  * Aqui conectaremos a la API a todos los endpoints: POST, GET, PUT...
- * 
+ * Conectaremos con 2 tipo de Enpoints, Productos y Productos Borrados
  * @example
  * /api/products
+ * /api/productsdelete
  */
 @Injectable({
   providedIn: 'root'
@@ -59,6 +60,34 @@ export class ProductService {
         }
       )
     ); 
+  }
+  // Productos Desactivados/eliminados
+  getProductsDelete(data:any){
+    const {anio, campania} = data;
+    let params = new HttpParams().set('anio', anio).set('campania', campania);
+    return this.http.get(`${environment.SERVER_TW}/api/productsdelete`, {params: params})
+    .pipe(
+      map(
+        resp => {
+          this.response = resp;
+          return resp;
+        }
+      )
+    );
+
+  }
+
+  // Activar codigos
+  postActivarCodigo(data:any){
+    return this.http.post(`${environment.SERVER_TW}/api/productsdelete`, data)
+            .pipe(
+              map(
+                resp => {
+                  this.response = resp;
+                  return resp;
+                }
+              )
+            );
   }
 
 }

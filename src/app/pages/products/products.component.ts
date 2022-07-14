@@ -99,6 +99,8 @@ export class ProductsComponent implements OnInit {
         this.loader = false;
         if(this.response.data.length > 0){
           this.show = true;
+          this.errorMsg = '';
+          this.noData = false;
         }else{
           this.noData = true;
           this.errorMsg = `El codigo ${this.product.codigoarticulo} no existe!!`;
