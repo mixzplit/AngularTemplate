@@ -55,13 +55,13 @@ export class SipProcessService {
   }
   
   /**
-   * 
+   * Crear Gerente de Zona
    * @param users 
    * @returns 
    */
   createGerenteZona(users: any){
     console.log(users);
-    return this.http.post(`${environment.SERVER_TW}/api/sipservices/ngerentezona`, users)
+    return this.http.post(`${environment.SERVER_TW}/api/sipGerentesZona`, users)
           .pipe( 
             map( resp => {
               return resp;
@@ -69,8 +69,12 @@ export class SipProcessService {
           );
   }
 
+  /**
+   * Obtener Gerentes de Zona
+   * @returns 
+   */
   getGerentesZona(){
-    return this.http.get(`${environment.SERVER_TW}/api/sipservices/gerenteszona`).pipe(
+    return this.http.get(`${environment.SERVER_TW}/api/sipGerentesZona`).pipe(
       map(resp => {
         return resp;
       }));

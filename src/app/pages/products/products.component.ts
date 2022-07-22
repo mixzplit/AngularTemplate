@@ -92,7 +92,7 @@ export class ProductsComponent implements OnInit {
     }
 
     this.product = formValues.value;
-    
+
     this.productService.getProduct(this.product).subscribe({
       next: (resp) => {
         this.response = resp
@@ -152,7 +152,7 @@ export class ProductsComponent implements OnInit {
                   Validators.maxLength(4), 
                   Validators.pattern(`^[0-9]*$`) ] ],
       campania: ['', [Validators.required, Validators.maxLength(2)] ],
-      codigoarticulo: ['', [Validators.required] ],
+      codigoarticulo: ['',  ],
     });
   }
 

@@ -26,7 +26,11 @@ export class ProductsdeletesComponent implements OnInit {
    * solo cuando haya informacion en la respuesta
    */
   show: boolean = false;
-  
+  /** Valor por defecto FALSE, se usa para mostrar el Skeleton Loading */
+  loader: boolean = false;
+  /** Valor por defecto FALSE, se usa para mostrar un mensaje cuando la API no devuelve informacion */
+  noData: boolean = false;
+
   faFolderPlus = faFolderPlus;
 
   constructor(private fb: FormBuilder, private productService: ProductService) { 
@@ -84,6 +88,11 @@ export class ProductsdeletesComponent implements OnInit {
         this.response = resp;
         if(this.response.productos.length > 0){
           this.show = true;
+          this.errorMsg = '';
+          this.noData = false;
+        }else{
+          this.noData = true;
+          this.errorMsg = `No hay datos para el Año y Campaña seleccionado!`;
         }
       },
       error: (err) => {
@@ -97,7 +106,7 @@ export class ProductsdeletesComponent implements OnInit {
 
   onReactive(product: any, id: number){
     Swal.fire({
-      title: 'Borrar Producto',
+      title: 'Activar Producto',
       text: `¿Esta seguro que desea activar el articulo ${product.codigoarticulo} ?`,
       icon: 'question',
       showCancelButton: true,
