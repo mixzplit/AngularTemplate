@@ -79,8 +79,6 @@ export class ProductsdeletesComponent implements OnInit {
         control.markAsTouched();
       });
     }
-    console.log(formValues.value);
-    //this.product = formValues.value;
 
     this.productService.getProductsDelete(formValues.value).subscribe({
       next: (resp) => {
