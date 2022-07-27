@@ -4,7 +4,7 @@
 
 <div class="table-responsive">
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover row-border hover">
-        <thead>
+        <thead class="table-light">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
@@ -14,7 +14,7 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             <tr *ngFor="let usuario of response.data">
                 <td>{{ usuario.userid }}</td>
                 <td>{{ usuario.usuario }}</td>

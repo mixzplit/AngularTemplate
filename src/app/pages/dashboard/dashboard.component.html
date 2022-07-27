@@ -6,7 +6,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
-                <div class="card overflow-hidden">
+                <div class="card overflow-hidden" style="height: 8rem;">
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
@@ -23,21 +23,22 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
-                <div class="card overflow-hidden">
-                    <div class="card-body">
-                        <span class="text-muted fs-12"><span class="text-pink"></span> {{ descOfertaActual }}</span>
+                <div class="card overflow-hidden" style="height: 8rem;">
+                    <div class="card-body" *ngIf="cardBody">
+                        <span class="fs-12 text-primary"><span class="text-pink"></span> {{ descOfertaActual }}</span>
                         <div class="d-flex">
                             <div class="mt-2 ml-2">
                                 <h6 class="">Stock</h6>
-                                <h2 class="mb-0 number-font">{{ stockOfertaActual }}</h2>
+                                <h3 class="mb-0 number-font">{{ stockOfertaActual }}</h3>
                             </div>
                             <div class="mt-2 ms-4">
                                 <h6 class="">Solicitadas</h6>
-                                <h2 class="mb-0 number-font">{{ cantOfertaActual }}</h2>
+                                <h3 class="mb-0 number-font">{{ cantOfertaActual }}</h3>
                             </div>
                         </div>
                         <span class="text-muted fs-12"><span class="text-pink"><i class="fe fe-arrow-down-circle text-pink"></i></span>Finaliza en: {{ finOfertaActual | date:"short"}}</span>
                     </div>
+                    <div class="card-body text-center text-danger" *ngIf="!cardBody">NO HAY OFERTAS ACTIVAS</div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
@@ -115,8 +116,8 @@
 
                 <div class="table-responsive">
                     <table class="table caption-top">
-                        <caption>List of Current Offers</caption>
-                        <thead>
+                        <caption>Listado de Ofertas Activas</caption>
+                        <thead class="table-light">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Codigo</th>
@@ -125,7 +126,7 @@
                                 <th scope="col">Cantidad</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="table-group-divider">
                             <tr *ngFor="let offer of offers; index as i">
                                 <th scope="row">{{i+1}}</th>
                                 <td>{{offer.codigoarticulo}}</td>

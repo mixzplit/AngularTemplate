@@ -35,6 +35,8 @@ export class DashboardComponent implements OnInit {
   finOfertaActual: string | any;
   descOfertaActual: string | unknown;
   offers: any;
+  cardBody: boolean = false;
+  nextOffer: Date | undefined;
 
   /** Constructor */
   constructor(private socket: SocketsService, private userService: UserService) { 
@@ -53,12 +55,17 @@ export class DashboardComponent implements OnInit {
     this.socket.desconectado();
     
     this.socket.offers().subscribe( (data:any) => {
-
-      this.cantOfertaActual = data[0].cant;
-      this.stockOfertaActual = data[0].stock;
-      this.finOfertaActual = data[0].fechafin;
-      this.descOfertaActual = data[0].descripcion;
-      this.offers = data;
+      if(data != ''){
+        this.cantOfertaActual = data[0].cant;
+        this.stockOfertaActual = data[0].stock;
+        this.finOfertaActual = data[0].fechafin;
+        this.descOfertaActual = data[0].descripcion;
+        this.offers = data;
+        this.cardBody = true;
+      }else{
+        this.cardBody = false;
+        
+      }
     });
      
     this.socket.altaswebAnio().subscribe( (data:any) => {

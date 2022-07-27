@@ -36,11 +36,7 @@
                 <input type="text" class="form-control" id="floatingGrupo" placeholder="Grupo, example: 1, 2 ó 3" formControlName="grupo" [class.is-invalid]="grupoInvalid">
                 <label for="floatingGrupo">Grupo</label>
                 <!-- <span *ngIf="grupoInvalid" class="text-danger">Grupo es obligatorio</span> -->
-                <span class="help-block">
-                    Info.: 3 => Gerente Zona;
-                         2 => Gerente Divisional;
-                         1 => Usuario Tupper.
-                 </span>
+                <div id="emailHelp" class="form-text"> Info.: 3 => Gerente Zona; 2 => Gerente Divisional; 1 => Usuario Tupper.</div>
                 <div *ngIf="grupoInvalid">
                     <div *ngIf="form.controls['grupo'].errors?.['required']" class="text-danger">Grupo es obligatorio</div>
                     <div *ngIf="form.controls['grupo'].errors?.['maxlength'] || form.controls['grupo'].errors?.['minlength'] " class="text-danger">Grupo debe ser 1 número</div>
