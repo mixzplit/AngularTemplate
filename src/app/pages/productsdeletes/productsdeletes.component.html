@@ -34,7 +34,7 @@
 
 <div class="table-responsive" *ngIf="show">
     <table class="table table-hover">
-        <thead>
+        <thead class="table-light">
             <tr>
                 <th>#ID</th>
                 <th>Anio</th>
@@ -43,7 +43,7 @@
                 <th>Acción</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             <tr *ngFor="let item of response.productos; index as i">
                 <td>{{item.articuloid}}</td>
                 <td>{{item.anio}}</td>

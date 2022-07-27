@@ -49,6 +49,7 @@
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingCodigo" placeholder="Codigo" formControlName="codigoarticulo" [class.is-invalid]="codigoInvalid">
                 <label for="floatingCodigo">Codigo Articulo</label>
+                <div id="emailHelp" class="form-text">Dejar vacio para consultar todos los articulos</div>
                 <span *ngIf="codigoInvalid" class="text-danger">Codigo Articulo es obligatorio</span>
             </div>
         </div>
@@ -68,8 +69,9 @@
 </div>
 
 <div class="table-responsive" *ngIf="show">
-    <table class="table table-hover">
-        <thead>
+    <table class="table table-hover caption-top">
+        <caption>Lista de Articulos</caption>
+        <thead class="table-light">
             <tr>
                 <th>#</th>
                 <th>Anio</th>
@@ -82,7 +84,7 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             <tr *ngFor="let item of response.data; index as i">
                 <td>{{i + 1}}</td>
                 <td>{{item.ANIO}}</td>
