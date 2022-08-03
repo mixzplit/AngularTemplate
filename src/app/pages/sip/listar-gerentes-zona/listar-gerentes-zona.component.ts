@@ -41,7 +41,7 @@ export class ListarGerentesZonaComponent implements OnInit {
 
     this.sipService.getGerentesZona().subscribe({
       next: (resp: any) => {
-        console.log(resp);
+        //console.log(resp);
         this.response = resp
         /*this.loader = false;
         this.noData = false;

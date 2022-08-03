@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { Observable } from 'rxjs';
 
 /**
  * Role Guard
@@ -25,18 +26,23 @@ export class RoleGuard implements CanActivate {
    * para acceder a menus especificos
    * @returns True o False
    */
-  canActivate(): boolean {
+  canActivate(route: ActivatedRouteSnapshot,
+              state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if(!this.auth.getCookie()){
       window.location.reload();
     }
-    this.respUserInfo = this.auth.infoUser();
-    const [ cn ] = this.respUserInfo.memberOf.split(',')
-    if ( cn === 'CN=gadmin' ){
-      //console.log(cn);
-      return true;
-    }else{
-       return false;
-    }
+    return this.chekUserLogin(route);
   } 
   
+  chekUserLogin(route: ActivatedRouteSnapshot): boolean{
+     this.respUserInfo = this.auth.infoUser();
+
+    if(route.data["role"].includes(this.respUserInfo.rol)){
+      return true;
+    }else{
+      return false;
+    }
+
+  }
+
 }

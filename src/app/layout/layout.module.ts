@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
 import { AvatarModule } from 'ngx-avatars';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PermissionsDirective } from '../directives/permissions.directive';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SidebarComponent,
     FullLayoutComponent,
+    PermissionsDirective
   ],
   imports: [
     CommonModule,

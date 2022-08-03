@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/home/dashboard');
       },
       error: (err) => { 
-        console.log(err);
+        //console.log(err);
         this.errorMsg = err.error.err.message
         Swal.fire(this.errorMsg, '', 'error')
       }
