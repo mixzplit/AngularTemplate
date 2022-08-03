@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "SSP2"
+  "defaultProject": "SSP2",
+  "cli": {
+    "analytics": false
+  }
 }

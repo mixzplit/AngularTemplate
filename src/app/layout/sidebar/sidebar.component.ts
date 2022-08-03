@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faFileAlt, faFireAlt, faOutdent, fas, faTachometerAlt, faThList, faUserPlus, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { MenuService } from 'src/app/services/menu.service';
 import { RoleGuard } from '../../guards/role.guard';
 import { UserService } from '../../services/user.service';
-import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 
 /**
  * SidebarComponent
@@ -42,8 +40,7 @@ export class SidebarComponent implements OnInit {
     faOutdent,
     faFireAlt,
     faUsers,
-    faUserPlus,
-    faCalendarAlt,
+    faUserPlus
   }
   
   userResponse: any;
