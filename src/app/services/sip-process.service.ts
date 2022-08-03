@@ -32,7 +32,7 @@ export class SipProcessService {
   }
 
   createUsuario(users: any){
-    console.log(users);
+    //console.log(users);
     return this.http.post(`${environment.SERVER_TW}/api/sipservices/`, users)
           .pipe( 
             map( resp => {
@@ -50,7 +50,7 @@ export class SipProcessService {
     const userData = {
       ...user
     }
-    console.log(userData);
+    //console.log(userData);
     return this.http.put(`${environment.SERVER_TW}/api/sipservices/${userid}`, userData );
   }
   
@@ -60,7 +60,7 @@ export class SipProcessService {
    * @returns 
    */
   createGerenteZona(users: any){
-    console.log(users);
+    //console.log(users);
     return this.http.post(`${environment.SERVER_TW}/api/sipGerentesZona`, users)
           .pipe( 
             map( resp => {

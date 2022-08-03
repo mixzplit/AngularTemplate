@@ -11,20 +11,20 @@ const routes: Routes = [
     component: FullLayoutComponent, 
     children: [
       { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardModule)},
-      { path: 'cierrePedidos', loadChildren: () => import('./pages/cierre-pedidos/cierre-pedidos.module').then( m => m.CierrePedidosModule), canActivate: [RoleGuard]},
-      { path: 'products', loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule), canActivate: [RoleGuard] },
-      { path: 'productsDelete', loadChildren: () => import('./pages/productsdeletes/productsdeletes.module').then(m => m.ProductsdeletesModule), canActivate: [RoleGuard] },
-      { path: 'offers', loadChildren: () => import('./pages/offers/offers.module').then(m => m.OffersModule), canActivate: [RoleGuard] },
+      { path: 'cierrePedidos', loadChildren: () => import('./pages/cierre-pedidos/cierre-pedidos.module').then( m => m.CierrePedidosModule), canActivate: [RoleGuard], data:{ role: ['CN=gadmin','CN=gvtassup']} },
+      { path: 'products', loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule), canActivate: [RoleGuard], data:{role:['CN=gadmin','CN=gmktgsup']} },
+      { path: 'productsDelete', loadChildren: () => import('./pages/productsdeletes/productsdeletes.module').then(m => m.ProductsdeletesModule), canActivate: [RoleGuard], data:{role:['CN=gadmin','CN=gmktgsup']} },
+      { path: 'offers', loadChildren: () => import('./pages/offers/offers.module').then(m => m.OffersModule), canActivate: [RoleGuard], data:{role:['CN=gadmin','CN=gmktgsup','CN=gvtassup']} },
     ],
     canActivate: [AuthGuard]
   },
   { path: 'sip',
     component: FullLayoutComponent,
     children: [
-      { path: 'listarUsuarios', loadChildren: () => import('./pages/sip/listar-usuarios/listar-usuarios.module').then(m => m.ListarUsuariosModule), canActivate: [RoleGuard] },
-      { path: 'crearUsuarios', loadChildren: () => import('./pages/sip/crear-usuarios/crear-usuarios.module').then(m => m.CrearUsuariosModule), canActivate: [RoleGuard] },
-      { path: 'crearGerenteZona', loadChildren: () => import('./pages/sip/crear-gerente-zona/crear-gerente-zona.module').then(m => m.CrearGerenteZonaModule), canActivate: [RoleGuard] },
-      { path: 'listarGerentesZona', loadChildren: () => import('./pages/sip/listar-gerentes-zona/listar-gerentes-zona.module').then(m => m.ListarGerentesZonaModule), canActivate: [RoleGuard] },
+      { path: 'listarUsuarios', loadChildren: () => import('./pages/sip/listar-usuarios/listar-usuarios.module').then(m => m.ListarUsuariosModule), canActivate: [RoleGuard], data:{role:['CN=gadmin']} },
+      { path: 'crearUsuarios', loadChildren: () => import('./pages/sip/crear-usuarios/crear-usuarios.module').then(m => m.CrearUsuariosModule), canActivate: [RoleGuard], data:{role:['CN=gadmin']} },
+      { path: 'crearGerenteZona', loadChildren: () => import('./pages/sip/crear-gerente-zona/crear-gerente-zona.module').then(m => m.CrearGerenteZonaModule), canActivate: [RoleGuard], data:{role:['CN=gadmin']} },
+      { path: 'listarGerentesZona', loadChildren: () => import('./pages/sip/listar-gerentes-zona/listar-gerentes-zona.module').then(m => m.ListarGerentesZonaModule), canActivate: [RoleGuard], data:{role:['CN=gadmin']} },
     ],
     canActivate: [AuthGuard]
   },
