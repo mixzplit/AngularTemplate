@@ -4,7 +4,7 @@
     </a> -->
 
     <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
+        <ul class="nav flex-column" *ngIf="menuItemsLoad">
 
             <!-- BUSCAMOS LOS MENUS PRINCIPALES-->
             <li class="nav-item" *ngFor="let menu of menuResponse.menus">
@@ -24,7 +24,7 @@
                             <span>{{menu.title}}</span>
                         </a>
                         <div id="collapseExample{{menu._id}}" class="collapse">
-                            <ul class="nav flex-column">
+                            <ul *ngIf="subMenuItemsLoad" class="nav flex-column">
                                 <li class="nav-item ms-3" *ngFor="let submenu of subMenuReponse.menus">
                                     <div *appPermissions="submenu.roles">
                                         <a *ngIf="submenu.parent == menu.seq" routerLink="{{submenu.link}}" routerLinkActive="active" class="nav-link" href="#">

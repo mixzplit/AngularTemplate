@@ -10,13 +10,11 @@ import { LayoutModule } from './layout/layout.module';
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocketsService } from './services/sockets.service';
-import { PermissionsDirective } from './directives/permissions.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    //PermissionsDirective,
   ],
   imports: [
     BrowserModule,

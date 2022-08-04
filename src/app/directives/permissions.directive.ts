@@ -51,10 +51,10 @@ export class PermissionsDirective implements OnInit{
         // validamos roles
         const permissionFound = checkPermission.includes(this.currentUser.rol.substring(3,this.currentUser.rol.length));
 
-        console.log('FOUND:', permissionFound);  
+        //console.log('FOUND:', permissionFound);  
         // validamos si encontro el permiso
         if(permissionFound){
-          console.log('Puede ver menu: ', permissionFound);
+          //console.log('Puede ver menu: ', permissionFound);
           hasPermission = true;
           //break;  // rompemos el ciclo
         }
