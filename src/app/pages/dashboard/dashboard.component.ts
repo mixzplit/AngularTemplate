@@ -2,9 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SocketsService } from '../../services/sockets.service';
 import { Chart, LinearScale, BarController, CategoryScale, BarElement, LineController,
         PointElement, LineElement, Legend, Tooltip } from 'chart.js';
-//import * as internal from 'stream';
-import { map } from 'rxjs';
-import { faOtter } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from 'src/app/services/user.service';
 Chart.register(LinearScale, BarController, CategoryScale, BarElement, 
                LineController, PointElement, LineElement, Legend, Tooltip);
@@ -35,10 +32,11 @@ export class DashboardComponent implements OnInit {
   finOfertaActual: string | any;
   descOfertaActual: string | unknown;
   offers: any;
+  cardBody: boolean = false;
+  //nextOffer: Date | undefined;
 
   /** Constructor */
   constructor(private socket: SocketsService, private userService: UserService) { 
-    console.log('constructor');
   }
   
   /** OnInit */
@@ -53,12 +51,17 @@ export class DashboardComponent implements OnInit {
     this.socket.desconectado();
     
     this.socket.offers().subscribe( (data:any) => {
-
-      this.cantOfertaActual = data[0].cant;
-      this.stockOfertaActual = data[0].stock;
-      this.finOfertaActual = data[0].fechafin;
-      this.descOfertaActual = data[0].descripcion;
-      this.offers = data;
+      if(data != ''){
+        this.cantOfertaActual = data[0].cant;
+        this.stockOfertaActual = data[0].stock;
+        this.finOfertaActual = data[0].fechafin;
+        this.descOfertaActual = data[0].descripcion;
+        this.offers = data;
+        this.cardBody = true;
+      }else{
+        this.cardBody = false;
+        
+      }
     });
      
     this.socket.altaswebAnio().subscribe( (data:any) => {
@@ -77,10 +80,13 @@ export class DashboardComponent implements OnInit {
         }]
      };
 
-
-      if(this.chartjs){
-        this.chartjs.destroy();
+      // Buscamos si ya existe un objeto Chart
+      // Y si existe destruye el objeto y carga uno nuevo
+      let chartExist = Chart.getChart("myChart");
+      if(chartExist != undefined){
+        chartExist.destroy();
       }
+      
       const canvas = <HTMLCanvasElement> document.getElementById('myChart');
       this.ctx = canvas.getContext('2d');
       this.chartjs = new Chart(this.ctx,{
@@ -116,26 +122,24 @@ export class DashboardComponent implements OnInit {
       //console.log(data);
       this.userCount = data.userCount;
     })
-
-
     
   }
 
 
-  groupArrayOfObjects(list:any, key:any) {
+/*   groupArrayOfObjects(list:any, key:any) {
     return list.reduce((rv:any, x:any) => {
       (rv[x[key]] = rv[x[key]] || []).push(x);
       return rv;
     }, {});
-  };
+  }; */
 
-  addData(chart:any, label:any, data:any) {
+  /* addData(chart:any, label:any, data:any) {
     chart.data.labels = label;
     chart.data.datasets.forEach((dataset:any) => {
         dataset.data.push(data);
     });
     chart.update();
-  }
+  } */
 
 /*   filterObjectProperties({id, name, image, episode}){
     return {id, name, image, episode};

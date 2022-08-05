@@ -20,6 +20,9 @@ import { environment } from 'src/environments/environment';
 export class UserService {
   /** Guardamos la informacion de los Endpoint */
   response!: any;
+
+  roles!: any;
+
   /**
    * Constructor, recibe como parametro el HttpClient
    * para hacer los HTTP Requests y CookieService para
@@ -39,12 +42,13 @@ export class UserService {
     const userData = {
       ...user
     };
+
     return this.http.post(`${environment.SERVER_TW}/api/auth`, userData)
       .pipe(
         map( resp => {
           this.response = resp
           this.setCookie(); // guardamos los datos de sesion
-          console.log(this.response.msg);
+          //console.log(this.response);
           return resp
         })
       );
@@ -121,5 +125,11 @@ export class UserService {
         })
     );      
   }
+
+
+  hasAccessToModule(){
+
+  }
+
 
 }

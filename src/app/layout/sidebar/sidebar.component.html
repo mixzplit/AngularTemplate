@@ -1,76 +1,53 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse accordion">
+    <!--     <a href="#" class="d-block link-dark text-decoration-none avatar d-none d-sm-block" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://via.placeholder.com/28?text=!" alt="user" width="32" height="32" class="rounded-circle">
+    </a> -->
+
     <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-            <li class="nav-item" *ngIf="roleGuard.canActivate()">
-                <a routerLink="/home/dashboard" routerLinkActive="active" class="nav-link" aria-current="page" href="#">
-                    <fa-icon [icon]="faTachometerAlt" class="me-2"></fa-icon>Dashboard
-                </a>
-            </li>
-            <li class="nav-item" *ngIf="roleGuard.canActivate()">
-                <a routerLink="/home/cierrePedidos" routerLinkActive="active" class="nav-link" href="#">
-                    <fa-icon [icon]="faFileAlt" class="me-2"></fa-icon> Cierre Pedidos Woe
-                </a>
-            </li>
+        <ul class="nav flex-column" *ngIf="menuItemsLoad">
 
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#collapseExample" data-bs-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
-                    <fa-icon [icon]="faThList" class="me-2"></fa-icon>
-                    <span>Articulos</span>
-                </a>
-                <div id="collapseExample" class="collapse">
-                    <ul class="nav flex-column">
-                        <li class="nav-item ms-3" *ngIf="roleGuard.canActivate()">
-                            <a routerLink="/home/products" routerLinkActive="active" class="nav-link" href="#">
-                                <fa-icon [icon]="faOutDent" class="me-2"></fa-icon>Articulos Woe
-                            </a>
-                        </li>
-
-                        <li class="nav-item ms-3" *ngIf="roleGuard.canActivate()">
-                            <a routerLink="/home/productsDelete" routerLinkActive="active" class="nav-link" href="#">
-                                <fa-icon [icon]="faOutDent" class="me-2"></fa-icon>Articulos Eliminados Woe
-                            </a>
-                        </li>
-
-                        <li class="nav-item ms-3" *ngIf="roleGuard.canActivate()">
-                            <a routerLink="/home/offers" routerLinkActive="active" class="nav-link" href="#">
-                                <fa-icon [icon]="faFireAlt" class="me-2"></fa-icon>Ofertas Wao</a>
-                        </li>
-                    </ul>
+            <!-- BUSCAMOS LOS MENUS PRINCIPALES-->
+            <li class="nav-item" *ngFor="let menu of menuResponse.menus">
+                <!-- Agregamo un DIV que encierra los menus principales para pider 
+                     agregar la directiva de permisos, ya que no es posible
+                     tener mas una directiva por elemento HTML -->
+                <div *appPermissions="menu.roles">
+                    <a *ngIf="menu.link != '#'; else submenu" routerLink="{{menu.link}}" routerLinkActive="active" class="nav-link">
+                        <fa-icon [icon]="icons[menu.icon]" class="me-2"></fa-icon>{{menu.title}}
+                    </a>
                 </div>
+                <!-- ELSE OBTENEMOS LOS SUBMENUS -->
+                <ng-template #submenu>
+                    <li class="nav-item" *appPermissions="menu.roles">
+                        <a class="nav-link collapsed" href="#collapseExample{{menu._id}}" data-bs-toggle="collapse" data-target="#collapseExample{{menu._id}}" aria-expanded="true" aria-controls="collapseExample">
+                            <fa-icon [icon]="icons[menu.icon]" class="me-2"></fa-icon>
+                            <span>{{menu.title}}</span>
+                        </a>
+                        <div id="collapseExample{{menu._id}}" class="collapse">
+                            <ul *ngIf="subMenuItemsLoad" class="nav flex-column">
+                                <li class="nav-item ms-3" *ngFor="let submenu of subMenuReponse.menus">
+                                    <div *appPermissions="submenu.roles">
+                                        <a *ngIf="submenu.parent == menu.seq" routerLink="{{submenu.link}}" routerLinkActive="active" class="nav-link" href="#">
+                                            <fa-icon [icon]="icons[submenu.icon]" class="me-2"></fa-icon>{{submenu.title}}
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ng-template>
+
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#collapseSip" data-bs-toggle="collapse" data-target="#collapseSip" aria-expanded="true" aria-controls="collapseSip">
-                    <fa-icon [icon]="faThList" class="me-2"></fa-icon>
-                    <span>Procesos SIP</span>
-                </a>
-                <div id="collapseSip" class="collapse">
-                    <ul class="nav flex-column">
-                        <li class="nav-item ms-3" *ngIf="roleGuard.canActivate()">
-                            <a routerLink="/sip/listarUsuarios" routerLinkActive="active" class="nav-link" href="#">
-                                <fa-icon [icon]="faUsers" class="me-2"></fa-icon>Listar Usuarios
-                            </a>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a routerLink="/sip/crearUsuarios" routerLinkActive="active" class="nav-link" href="#">
-                                <fa-icon [icon]="faUserPlus" class="me-2"></fa-icon>Crear Usuario</a>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a routerLink="/sip/listarGerentesZona" routerLinkActive="active" class="nav-link" href="#">
-                                <fa-icon [icon]="faUsers" class="me-2"></fa-icon>Listar Gerente Zona</a>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a routerLink="/sip/crearGerenteZona" routerLinkActive="active" class="nav-link" href="#">
-                                <fa-icon [icon]="faUserPlus" class="me-2"></fa-icon>Crear Gerente Zona</a>
-                        </li>
-
-
-                    </ul>
-                </div>
-            </li>
-
-
         </ul>
+
     </div>
+    <ul class="nav">
+        <li class="active-pro">
+            <figure>
+                <figcaption class="blockquote-footer">
+                    Version <cite title="Source Title">1.3.0</cite>
+                </figcaption>
+            </figure>
+        </li>
+    </ul>
 </nav>
