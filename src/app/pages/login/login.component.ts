@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UsuarioModel } from '../../models/usuarioModel';
 import { UserService } from '../../services/user.service';
+import { environment } from '../../../environments/environment.dev';
 
 /**
  * Componente Login
@@ -23,6 +24,11 @@ export class LoginComponent implements OnInit {
   /** Guardamos el mensaje de Error */
   errorMsg: string = '';
 
+  brandLogo: string = '';
+  landscapeLogo: string = '';
+  styleButton: string = '';
+
+
   /**
    * Constructor, recibe como parametros los servicios Router y UserService
    * @param router 
@@ -38,7 +44,8 @@ export class LoginComponent implements OnInit {
    * si es true no pide las credenciales de acceso.   * 
    */
   ngOnInit(): void {
-    console.log('LoginComponent');
+    //console.log('LoginComponent');
+    this.loadBrandLogo();
     if(this.auth.isAuth()){
       this.router.navigateByUrl('/home');
     }
@@ -53,7 +60,7 @@ export class LoginComponent implements OnInit {
    */
   login (form: NgForm){
     if ( form.invalid ) {
-      console.log(form);
+      //console.log(form);
       return;
     }
 
@@ -69,7 +76,7 @@ export class LoginComponent implements OnInit {
     this.auth.authUser(this.user).subscribe({
       next: (resp) => { 
         this.response = resp
-        console.log(this.response);
+        //console.log(this.response);
         Swal.close();
         this.router.navigateByUrl('/home/dashboard');
       },
@@ -80,6 +87,16 @@ export class LoginComponent implements OnInit {
       }
     });
 
+  }
+
+  loadBrandLogo(){
+    if(environment.production){
+      this.brandLogo = 'assets/images/tupperBrands-logo-resize.png';
+      this.landscapeLogo = 'assets/images/Landscape_Login.png';
+    }else{
+      this.brandLogo = 'assets/images/logo.svg';
+      this.landscapeLogo = 'assets/images/comic.jpg';
+    }
   }
 
 }

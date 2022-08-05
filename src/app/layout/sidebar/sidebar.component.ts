@@ -3,6 +3,7 @@ import { faFileAlt, faFireAlt, faOutdent, fas, faTachometerAlt, faThList, faUser
 import { MenuService } from 'src/app/services/menu.service';
 import { RoleGuard } from '../../guards/role.guard';
 import { UserService } from '../../services/user.service';
+import { faCalendarAlt, faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 
 /**
  * SidebarComponent
@@ -40,15 +41,21 @@ export class SidebarComponent implements OnInit {
     faOutdent,
     faFireAlt,
     faUsers,
-    faUserPlus
+    faUserPlus,
+    faCalendarAlt
   }
   
   userResponse: any;
   userRole: string = '';
 
-  menuResponse!: any;
-  subMenuReponse!: any;
-  menuItems!: any[];
+  menuResponse: any;
+  subMenuReponse: any;
+  // Variables para evitar undefined en la vista
+  // Se inicializa en false y sera true solo cuando
+  // el menu y submenu  respectivamente ya este cargado
+  // y listo para renderizar
+  menuItemsLoad: boolean = false;
+  subMenuItemsLoad: boolean = false;
 
   /**
    * Constructor, recibe el RoleGuard para validar el acceso 
@@ -64,8 +71,7 @@ export class SidebarComponent implements OnInit {
     this.getPermission();
     this.getMenu();
     this.getSubMenu();
-    /* this.menuItems = this.menu.menu;
-    console.log(this.menuItems); */
+
     this.icons;
 
   }
@@ -79,7 +85,8 @@ export class SidebarComponent implements OnInit {
     this.menu.getMenu().subscribe({
         next: (resp) => {
           this.menuResponse = resp;
-          console.log(this.menuResponse);
+          //console.log(this.menuResponse);
+          this.menuItemsLoad = true;
         },
         error: (err) => {
           console.log(err);
@@ -91,7 +98,8 @@ export class SidebarComponent implements OnInit {
     this.menu.getSubMenu().subscribe({
         next: (resp) => {
           this.subMenuReponse = resp;
-          console.log(this.subMenuReponse);
+          //console.log(this.subMenuReponse);
+          this.subMenuItemsLoad = true;
         },
         error: (err) => {
           console.log(err);

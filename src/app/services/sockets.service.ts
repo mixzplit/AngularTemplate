@@ -29,7 +29,7 @@ export class SocketsService {
   }
 
 
-  listen(eventName: string){
+/*   listen(eventName: string){
     return new Observable((Subscriber) => {
       this.socket.on('private-message', (data:unknown) => {
         Subscriber.next(data);
@@ -50,9 +50,7 @@ export class SocketsService {
     this.socket.emit(eventName, info, (id: any) => {
         console.log('Desde el server!!', id);
     });
-
-
-  }
+  } */
 
   /** Metodo que verifica que la conexion Socket esta activa */
   conectado(){
