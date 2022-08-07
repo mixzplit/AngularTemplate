@@ -1,5 +1,5 @@
 import { Directive, TemplateRef, ViewContainerRef, OnInit, Input } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Directive({
   selector: '[appPermissions]'
