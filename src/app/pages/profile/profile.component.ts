@@ -1,6 +1,7 @@
 import { Component, OnInit, VERSION } from '@angular/core';
 import { faAngular, faNodeJs } from '@fortawesome/free-brands-svg-icons';
 import { UserService } from '../../services/user.service';
+import { MenuService } from '../../services/menu.service';
 
 /**
  * ProfileComponent
@@ -21,11 +22,12 @@ export class ProfileComponent implements OnInit {
   
   /** Guardamos la informacion de la respuesta parseada como objeto JSON */
   respUserInfo: any;
+  userRole: string = '';
   /**
    * Constructor, recibe como parametro el servicio UserService
    * @param auth 
    */
-  constructor(private auth: UserService) { }
+  constructor(private auth: UserService, private menu: MenuService) { }
   
   /**
    * Metodo que se ejecuta cada vez que es invocado y dentro
@@ -46,12 +48,20 @@ export class ProfileComponent implements OnInit {
    */
   getUserInfo(){
     this.respUserInfo = this.auth.infoUser();
+    const userResponse:any = this.auth.infoUser();
+    this.userRole = userResponse.rol.substring(3,userResponse.rol.length);
+  }
+
+  getPermission(): string {
+    const userResponse:any = this.auth.infoUser();
+    console.log(userResponse);
+    return this.userRole = userResponse.rol.substring(3,userResponse.rol.length);
   }
 
   getNodeVersion(){
     this.auth.getNodeVersion().subscribe({
       next: resp => {
-        console.log(resp);
+        //console.log(resp);
         this.response = resp;
       },
       error: err => {

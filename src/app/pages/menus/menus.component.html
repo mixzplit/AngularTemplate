@@ -1,0 +1,37 @@
+<form class="row g-3">
+    <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Nombre </label>
+        <input type="text" class="form-control" id="inputEmail4">
+    </div>
+    <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">URL</label>
+        <input type="text" class="form-control" id="inputPassword4">
+        <div class="form-text">Colocar el simbolo "#" para Menu padre</div>
+    </div>
+    <div class="col-6">
+        <label for="inputAddress" class="form-label">Icono</label>
+        <input type="text" class="form-control" id="inputAddress" placeholder="">
+    </div>
+    <div class="col-6">
+        <label for="inputAddress2" class="form-label">Menu Padre</label>
+        <select *ngIf="menuItemsLoad" name="menuPadre" id="menuPadre" class="form-select">
+            <option selected [value]="0">Choose...</option>
+            <option *ngFor="let menu of menuResponse.menus" [value]="menu.seq">
+                {{menu.title}}
+            </option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label for="inputState" class="form-label">Roles Permitidos</label>
+        <select id="inputState" class="form-select">
+            <option selected>Choose...</option>
+            <option>...</option>
+        </select>
+    </div>
+
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Crear Menu</button>
+    </div>
+</form>

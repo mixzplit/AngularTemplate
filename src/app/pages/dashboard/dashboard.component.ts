@@ -21,7 +21,9 @@ export class DashboardComponent implements OnInit {
   /** Guarda el contexto de la vista */
   ctx!: any;
   /** Este sera el valor que asignaremos al elemento canvas de la vista */
-  @ViewChild('mychart') mychart: any;
+  @ViewChild('myChart') 
+  myChart: any;
+  
   chartjs: any;
   /** Usuarios Conectados */
   userCount: number | unknown;
@@ -39,31 +41,8 @@ export class DashboardComponent implements OnInit {
   constructor(private socket: SocketsService, private userService: UserService) { 
   }
   
-  /** OnInit */
-  ngOnInit(): void {
-    console.log('Dashboard');
-    if(!this.userService.getCookie()){
-      window.location.reload();
-    }
-
-    this.socket.conectado();
-  
-    this.socket.desconectado();
-    
-    this.socket.offers().subscribe( (data:any) => {
-      if(data != ''){
-        this.cantOfertaActual = data[0].cant;
-        this.stockOfertaActual = data[0].stock;
-        this.finOfertaActual = data[0].fechafin;
-        this.descOfertaActual = data[0].descripcion;
-        this.offers = data;
-        this.cardBody = true;
-      }else{
-        this.cardBody = false;
-        
-      }
-    });
-     
+  ngAfterViewInit(): void {
+    console.log("Cuando se carga?");
     this.socket.altaswebAnio().subscribe( (data:any) => {
       // Generamos un graficos con las
       // Altas Web del Año actual
@@ -116,7 +95,35 @@ export class DashboardComponent implements OnInit {
         this.chartjs.data['datasets'][0].data.push(data[key].cantidad);
       }
       this.chartjs.update();
+    });    
+  }
+
+  /** OnInit */
+  ngOnInit(): void {
+    console.log('Dashboard');
+    if(!this.userService.getCookie()){
+      window.location.reload();
+    }
+
+    this.socket.conectado();
+  
+    this.socket.desconectado();
+    
+    this.socket.offers().subscribe( (data:any) => {
+      if(data != ''){
+        this.cantOfertaActual = data[0].cant;
+        this.stockOfertaActual = data[0].stock;
+        this.finOfertaActual = data[0].fechafin;
+        this.descOfertaActual = data[0].descripcion;
+        this.offers = data;
+        this.cardBody = true;
+      }else{
+        this.cardBody = false;
+        
+      }
     });
+     
+    //
 
     this.socket.userCount().subscribe( (data:any) => {
       //console.log(data);
