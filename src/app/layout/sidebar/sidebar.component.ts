@@ -68,7 +68,6 @@ export class SidebarComponent implements OnInit {
    * @ignore
    */
   ngOnInit(): void {
-    this.getPermission();
     this.getMenu();
     this.getSubMenu();
 
@@ -76,22 +75,20 @@ export class SidebarComponent implements OnInit {
 
   }
   
-  getPermission(): string {
-    this.userResponse = this.user.infoUser();
-    return this.userRole = this.userResponse.rol;
-  }
-
   getMenu(){
     this.menu.getMenu().subscribe({
         next: (resp) => {
           this.menuResponse = resp;
-          //console.log(this.menuResponse);
           this.menuItemsLoad = true;
+          //
+          this.menu.menu.emit(this.menuResponse);
+          //console.log(this.menu);
         },
         error: (err) => {
           console.log(err);
         }
     })
+    
   }
 
   getSubMenu(){

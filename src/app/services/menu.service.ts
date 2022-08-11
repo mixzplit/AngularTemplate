@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs';
@@ -8,29 +8,12 @@ import { map } from 'rxjs';
 })
 export class MenuService {
   response: any;
-
-  menu:any[]=[{
-      title: "Dashboard",
-      icon: "",
-      link: "/home/dashboard",
-      submenu:[]
-    },
-    {
-      title: "Cierre Pedidos WOE",
-      icon: "",
-      link: "/home/cierrePedidos",
-      submenu: []
-    },{
-      title: "Articulos",
-      icon: "",
-      link: "",
-      submenu: [
-        {nombre: "Articulos Woe", icon: "", link:"/home/products"},
-        {nombre: "Articulos Eliminados Woe", icon: "", link:"/home/productsDelete"},
-        {nombre: "Ofertas WAO", icon: "", link:"/home/offers"}
-      ]
-    }
-  ]
+  /**
+   * variable que nos permitira obtener
+   * la informacion del menu desde cualquier
+   * componente
+   */
+  menu:EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private http: HttpClient) { }
 

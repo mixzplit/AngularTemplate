@@ -38,6 +38,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'pageNotFound', loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
+  { path: 'menus', loadChildren: () => import('./pages/menus/menus.module').then(m => m.MenusModule) },
   { path: '**', pathMatch: 'full', redirectTo: '/pageNotFound' }
 ];
 
