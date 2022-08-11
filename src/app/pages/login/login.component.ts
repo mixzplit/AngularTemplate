@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UsuarioModel } from '../../models/usuarioModel';
 import { UserService } from '../../services/user.service';
-import { environment } from '../../../environments/environment.dev';
+import { environment } from '../../../environments/environment';
 
 /**
  * Componente Login
