@@ -49,8 +49,7 @@ export class ListarUsuariosComponent implements OnDestroy, OnInit {
 
     this.sipService.getUsuarios().subscribe({
       next: (resp: any) => {
-        console.log(resp);
-        this.response = resp
+         this.response = resp
         /*this.loader = false;
         this.noData = false;
         if(this.response.offers.length > 0){
@@ -84,11 +83,9 @@ export class ListarUsuariosComponent implements OnDestroy, OnInit {
         this.sipService.deleteUsuario(usuario.userid).subscribe({
           next: (resp) => {
             //this.onSubmit(); //refrescamos
-            console.log(resp)
-            Swal.fire(`Usuario eliminado con exito`);
+             Swal.fire(`Usuario eliminado con exito`);
           },
           error: (err) => {
-            console.log(err);
             Swal.fire(`Oh!! No se pudo eliminar el usuario`);
           }
         });
@@ -129,7 +126,7 @@ export class ListarUsuariosComponent implements OnDestroy, OnInit {
               email,
               zona,
           });
-          console.log(!zona);
+
           if (!nombre || !email || !zona){
             reject({
                 error: Swal.showValidationMessage(`Por favor agregue un nombre, email y/o zona`)

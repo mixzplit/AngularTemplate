@@ -67,7 +67,6 @@ export class CrearGerenteZonaComponent implements OnInit {
   onSubmit(){
     // validamos el formulario
     if(this.form.invalid){
-      console.log(this.form);
       return Object.values(this.form.controls).forEach ( control => {
         control.markAsTouched();
       });
@@ -87,12 +86,10 @@ export class CrearGerenteZonaComponent implements OnInit {
     this.sipService.createGerenteZona(this.form.value).subscribe({
       next: (resp) => {
         this.response = resp
-        console.log(this.response);
         Swal.fire('Gerente de Zona Creada', '', 'success')
         this.onReset(); // Limpiamos el Form si es Success
       },
       error: (err) => { 
-        console.log(err);
         this.errorMsg = (err.error.errors) ? err.error.errors[0].msg : err.error.sqlMsg;
         Swal.fire(this.errorMsg, '', 'error')
       }

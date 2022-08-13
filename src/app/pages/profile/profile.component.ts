@@ -34,7 +34,6 @@ export class ProfileComponent implements OnInit {
    * llama al metodo que obtiene la informacion del usuario logeado.
    */
   ngOnInit(): void {
-    console.log('ProfileComponents');
     /* if(!this.auth.getCookie()){
       window.location.reload();
     } */
@@ -54,7 +53,6 @@ export class ProfileComponent implements OnInit {
 
   getPermission(): string {
     const userResponse:any = this.auth.infoUser();
-    console.log(userResponse);
     return this.userRole = userResponse.rol.substring(3,userResponse.rol.length);
   }
 
