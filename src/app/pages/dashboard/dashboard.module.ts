@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { PipesModule } from '../../pipes/pipes.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { PipesModule } from '../../pipes/pipes.module';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    PipesModule
+    SharedModule,
+    PipesModule,
+    FontAwesomeModule,
   ]
 })
 export class DashboardModule { }

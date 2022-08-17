@@ -1,0 +1,20 @@
+<div *ngIf="valDay">
+    <div [ngClass]="{'divWeatherMainDay':weatherData.isDay, 'divWeatherMain':!weatherData.isDay}" class="mt-3">
+        <fa-icon [icon]="reload" class="mt-2 mr-2" [spin]="spin" (click)="reloadComponent()"></fa-icon>
+        <div class="weatherWidgetRow">
+            <!-- <fa-icon [icon]="weatherData.newIcon" class="me-2"></fa-icon> -->
+            <i class="fas fa-{{weatherData.newIcon.iconName}} fa-4x mt-3"></i>
+        </div>
+
+        <div class="weatherWidgetRow" style="font-size: 45px;margin-top: 5px;">{{weatherData.temp_celcius}}°</div>
+        <div class="weatherWidgetRow" style="font-size: 12px;">{{weatherData.temp_max}}° / {{weatherData.temp_min}}°</div>
+        <div class="weatherWidgetRow" style="font-size: 12px;">Sensacion: {{weatherData.temp_feels_like}}°</div>
+        <div class="weatherWidgetRow" style="font-size: 12px;">{{weatherData.description | capitalize }}</div>
+        <div class="weatherWidgetRow" style="font-size: 25px;margin-top: 10px;">{{weatherData.name}}</div>
+        <div class="weatherWidgetRow" style="font-size: 12px;">
+            <fa-icon [icon]="humidity" class="me-2"></fa-icon>: {{weatherData.main.humidity}}%</div>
+        <div class="weatherWidgetRow" style="font-size: 12px;">Amanecer: {{weatherData.sunrise_time}} / Anochecer: {{weatherData.sunset_time}}</div>
+        <div class="weatherWidgetRow" style="font-size: 12px;">
+            <fa-icon [icon]="wind" class="me-2"></fa-icon>: {{weatherData.windSpeedKmh}} Km/h</div>
+    </div>
+</div>
