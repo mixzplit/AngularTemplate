@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   /** Guardamos la informacion de la respuesta parseada como objeto JSON */
   respUserInfo: any;
   userRole: string = '';
+  isAdmin: boolean = false;
   /**
    * Constructor, recibe como parametro el servicio UserService
    * @param auth 
@@ -48,7 +49,9 @@ export class ProfileComponent implements OnInit {
   getUserInfo(){
     this.respUserInfo = this.auth.infoUser();
     const userResponse:any = this.auth.infoUser();
-    this.userRole = userResponse.rol.substring(3,userResponse.rol.length);
+    //this.userRole = userResponse.rol.substring(3,userResponse.rol.length);
+    this.getUserRole(userResponse.rol); 
+
   }
 
   getPermission(): string {
@@ -66,6 +69,17 @@ export class ProfileComponent implements OnInit {
         console.log(err);
       }
     })
+  }
+
+  getUserRole(rol: any){
+    let r = ''
+    r = rol.find( (rol:string) => {
+      return rol.includes('gadmin')
+    });
+    if(r === 'CN=gadmin'){
+      this.isAdmin = true;
+    }
+
   }
 
 }
