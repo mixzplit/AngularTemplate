@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 
 /**
  * HeaderComponent
@@ -15,6 +16,9 @@ export class HeaderComponent implements OnInit {
   /** Respuesta del Servicio */
   respUserInfo: any;
 
+  brandLogo: string = '';
+  showLogo: boolean = false;
+
   /**
    * Constructor, recibe el UserService para obtener la
    * informacion del usuario y mostrar el Avatar
@@ -26,10 +30,8 @@ export class HeaderComponent implements OnInit {
    * Inicio del ciclo de vida del Componente
    */
   ngOnInit(): void {
+    this.loadBrandLogo();
     this.respUserInfo = this.userService.infoUser();
-    /* let session_id = JSON.parse(this.userService.getCookie());
-    console.log(session_id.session_id);
-    console.log(this.respUserInfo); */
   }
   
   /**
@@ -58,5 +60,11 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  loadBrandLogo(){
+    if(environment.production){
+      this.brandLogo = 'assets/images/tupperBrands-logo-resize.png';
+      this.showLogo = true;
+    }
+  }
 
 }

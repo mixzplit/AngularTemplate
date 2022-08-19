@@ -33,16 +33,34 @@ export class RoleGuard implements CanActivate {
     }
     return this.chekUserLogin(route);
   } 
-  
-  chekUserLogin(route: ActivatedRouteSnapshot): boolean{
-     this.respUserInfo = this.auth.infoUser();
 
-    if(route.data["role"].includes(this.respUserInfo.rol)){
-      return true;
-    }else{
-      return false;
+  /**
+   * Revisamos los roles del usuario con
+   * los permisos de acceso del menu en la
+   * propiedad "role" de la ruta.
+   * Usamos la validacion como la directiva de permisos
+   * que muestra o no el menu en la vista
+   * @param route 
+   * @returns 
+   */
+  chekUserLogin(route: ActivatedRouteSnapshot): boolean{
+    let hasPermission = false;
+    this.respUserInfo = this.auth.infoUser();
+    
+    // Recorremos la propiedad "role" del app.routing    
+    for(const permission of route.data["role"]){
+      // Buscamos el permiso del usuario y comparamos con el permiso de la ruta
+      const permissionFound = this.respUserInfo.rol.find((p:string) => {
+        return p === permission  
+      });
+      
+      if(permissionFound){
+        hasPermission =  true;
+      }
     }
 
+    return hasPermission
+    
   }
 
 }

@@ -48,8 +48,13 @@ export class PermissionsDirective implements OnInit{
       TODO:// recorremos los permisos del menu (roles permitidos para ver el menu) 
       // y luego lo vamos a comparar con los permisos (roles) del usuario
       for(const checkPermission of this.permissions){
+       
         // validamos roles
-        const permissionFound = checkPermission.includes(this.currentUser.rol.substring(3,this.currentUser.rol.length));
+        //const permissionFound = checkPermission.includes(this.currentUser.rol.substring(3,this.currentUser.rol.length));
+        const permissionFound = this.currentUser.rol.find((p:string) => {
+          return p.substring(3, p.length) === checkPermission  
+        });
+
 
         //console.log('FOUND:', permissionFound);  
         // validamos si encontro el permiso
