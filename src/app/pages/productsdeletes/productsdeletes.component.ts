@@ -74,7 +74,6 @@ export class ProductsdeletesComponent implements OnInit {
 
     this.show = false;
     if(formValues.invalid){
-      console.log(formValues);
       return Object.values(formValues.controls).forEach ( control => {
         control.markAsTouched();
       });
@@ -82,7 +81,6 @@ export class ProductsdeletesComponent implements OnInit {
 
     this.productService.getProductsDelete(formValues.value).subscribe({
       next: (resp) => {
-        console.log(resp);
         this.response = resp;
         if(this.response.productos.length > 0){
           this.show = true;
@@ -94,7 +92,6 @@ export class ProductsdeletesComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
         this.errorMsg = err;
       }
     });

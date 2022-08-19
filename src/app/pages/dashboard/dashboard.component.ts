@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
   }
   
   ngAfterViewInit(): void {
-    console.log("Cuando se carga?");
+    //console.log("Cuando se carga?");
     this.socket.altaswebAnio().subscribe( (data:any) => {
       // Generamos un graficos con las
       // Altas Web del Año actual
@@ -105,7 +105,7 @@ export class DashboardComponent implements OnInit {
 
   /** OnInit */
   ngOnInit(): void {
-    console.log('Dashboard');
+    //console.log('Dashboard');
     if(!this.userService.getCookie()){
       window.location.reload();
     }
@@ -190,13 +190,12 @@ export class DashboardComponent implements OnInit {
     this.weatherData.icon = `https://openweathermap.org/img/wn/${this.weatherData.weather[0].icon}.png`;
     this.weatherData.icon2x = `https://openweathermap.org/img/wn/${this.weatherData.weather[0].icon}@2x.png`;
     this.weatherData.description = this.weatherData.weather[0].description;
-/*     console.log(this.weatherData);
-    console.log(sunsetTime); */
+
   }
 
   getGeo(){
     navigator.geolocation.getCurrentPosition( geo => {
-      console.log('Location accessed');
+      //console.log('Location accessed');
       this.latitude = geo.coords.latitude;
       this.longitude = geo.coords.longitude;
       this.getWeather(this.latitude, this.longitude);

@@ -50,12 +50,11 @@ export class CrearUsuariosComponent implements OnInit {
     let formValues = this.form.value;
 
     if(this.form.invalid){
-      console.log(this.form);
       return Object.values(this.form.controls).forEach ( control => {
         control.markAsTouched();
       });
     }
-    console.log(this.lastId);
+
     formValues['userid'] = this.lastId;
 
     Swal.fire({
@@ -71,13 +70,11 @@ export class CrearUsuariosComponent implements OnInit {
     this.sipService.createUsuario(formValues).subscribe({
       next: (resp) => { 
         this.response = resp
-        console.log(this.response);
         Swal.fire('Usuario Creado', '', 'success')
         this.onReset(); // Limpiamos el Form si es Success
         this.maxId();
       },
       error: (err) => { 
-        console.log(err);
         this.errorMsg = (err.error.errors) ? err.error.errors[0].msg : err.error.sqlMsg;
         Swal.fire(this.errorMsg, '', 'error')
       }

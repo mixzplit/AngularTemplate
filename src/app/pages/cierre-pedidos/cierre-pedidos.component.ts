@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
 import { CierrePedidosService } from '../../services/cierre-pedidos.service';
 
 /**
@@ -42,7 +41,7 @@ export class CierrePedidosComponent implements OnInit {
    * @param datepipe 
    */
   constructor( private fb: FormBuilder, private cierrePedidos: CierrePedidosService,
-              public datepipe: DatePipe, private userService: UserService) {
+              public datepipe: DatePipe) {
     this.createForm();
   }
   /** Metodo que se ejecuta a llamar al componente */
@@ -116,7 +115,7 @@ export class CierrePedidosComponent implements OnInit {
     }
 
     if(this.form.invalid){
-      console.log(this.form);
+      //console.log(this.form);
       return Object.values(this.form.controls).forEach ( control => {
         control.markAsTouched();
       });
@@ -125,7 +124,6 @@ export class CierrePedidosComponent implements OnInit {
     this.cierrePedidos.cierrePedidos(formValues).subscribe({
       next: (resp) => { 
         this.response = resp
-        console.log(this.response);
         this.successMsg = this.response.msg;
         if(this.response.fileSend.status){
           this.successFileToGestor = this.response.fileSend.msg;
@@ -135,7 +133,6 @@ export class CierrePedidosComponent implements OnInit {
         this.onReset(); // Limpiamos el Form si es Success
       },
       error: (err) => { 
-        console.log(err);
         this.errorMsg = err.error.msg
       }
     });

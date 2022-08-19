@@ -82,7 +82,6 @@ export class ProductsComponent implements OnInit {
     this.loader = true;
     this.show = false;
     if(formValues.invalid){
-      console.log(formValues);
       return Object.values(formValues.controls).forEach ( control => {
         control.markAsTouched();
       });
@@ -104,7 +103,6 @@ export class ProductsComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err.error.error.sqlMsg);
         this.errorMsg = err.error.error.sqlMsg;
       }      
     });

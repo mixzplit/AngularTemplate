@@ -17,7 +17,6 @@ export class MenusComponent implements OnInit {
     this.menu.menu.subscribe( data => {
       this.menuResponse = data;
       this.menuItemsLoad = true;
-      console.log(this.menuResponse);
     })
   }
 
