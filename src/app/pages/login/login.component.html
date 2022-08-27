@@ -9,7 +9,7 @@
                 <div class="login-wrapper my-auto">
                     <!-- <h1 class="login-title">Log in SSP</h1> -->
 
-                    <form (ngSubmit)="login( fLogin )" #fLogin="ngForm">
+                    <form (ngSubmit)="login()" #fLogin="ngForm">
                         <div class="form-group">
                             <label for="user">Usuario</label>
                             <input [(ngModel)]="user.username" name="username" id="username" type="text" class="form-control" placeholder="ufp020" required>

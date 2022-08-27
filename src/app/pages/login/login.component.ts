@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -27,6 +27,9 @@ export class LoginComponent implements OnInit {
   brandLogo: string = '';
   landscapeLogo: string = '';
   styleButton: string = '';
+
+  @ViewChild("fLogin")
+  fLogin!: NgForm;
 
 
   /**
@@ -58,9 +61,9 @@ export class LoginComponent implements OnInit {
    * @param {NgForm} form 
    * @returns Redireccion al home si la credenciales fueron validadas correctamente
    */
-  login (form: NgForm){
-    if ( form.invalid ) {
-      //console.log(form);
+  login (){
+    if ( this.fLogin.invalid ) {
+      console.log(this.fLogin);
       return;
     }
 

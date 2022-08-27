@@ -21,7 +21,7 @@ export class MenuService {
     return this.http.get(`${environment.SERVER_TW}/api/menus`).pipe(
       map( resp => {
         this.response = resp
-        //console.log(resp);
+        console.log(resp);
         return resp;
       })
     )
@@ -33,7 +33,7 @@ export class MenuService {
     return this.http.get(`${environment.SERVER_TW}/api/menus`, {params: params}).pipe(
       map( resp => {
         this.response = resp
-        //console.log(resp);
+        console.log(resp);
         return resp;
       })
     )

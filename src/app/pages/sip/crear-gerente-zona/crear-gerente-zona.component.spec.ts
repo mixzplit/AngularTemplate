@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CrearGerenteZonaComponent } from './crear-gerente-zona.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('CrearGerenteZonaComponent', () => {
   let component: CrearGerenteZonaComponent;
@@ -8,7 +10,8 @@ describe('CrearGerenteZonaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrearGerenteZonaComponent ]
+      declarations: [ CrearGerenteZonaComponent ],
+      imports: [ReactiveFormsModule, HttpClientModule]
     })
     .compileComponents();
   });

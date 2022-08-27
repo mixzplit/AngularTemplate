@@ -111,12 +111,11 @@ export class DashboardComponent implements OnInit {
     }
     
     // carga Geolocalizacion
-    this.getGeo();   
-
+    this.getGeo();
 
     this.socket.conectado();
   
-    this.socket.desconectado();
+    //this.socket.desconectado();
     
     this.socket.offers().subscribe( (data:any) => {
       if(data != ''){
@@ -135,9 +134,9 @@ export class DashboardComponent implements OnInit {
     //
 
     this.socket.userCount().subscribe( (data:any) => {
-      //console.log(data);
+      console.log(data);
       this.userCount = data.userCount;
-    })
+    });
     
   }
 

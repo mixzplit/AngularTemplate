@@ -38,7 +38,7 @@ export class UserService {
    * @param {UsuarioModel} user 
    * @returns Devuelve un ID de sesion que sera seteado como Cookie
    */
-  authUser (user: UsuarioModel) {
+  authUser (user: UsuarioModel): Observable<any> {
     const userData = {
       ...user
     };
@@ -48,7 +48,6 @@ export class UserService {
         map( resp => {
           this.response = resp
           this.setCookie(); // guardamos los datos de sesion
-          //console.log(this.response);
           return resp
         })
       );
@@ -125,11 +124,5 @@ export class UserService {
         })
     );      
   }
-
-
-  hasAccessToModule(){
-
-  }
-
 
 }

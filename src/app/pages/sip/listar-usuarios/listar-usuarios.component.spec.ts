@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListarUsuariosComponent } from './listar-usuarios.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DataTablesModule } from 'angular-datatables';
 
 describe('ListarUsuariosComponent', () => {
   let component: ListarUsuariosComponent;
@@ -8,7 +10,8 @@ describe('ListarUsuariosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListarUsuariosComponent ]
+      declarations: [ ListarUsuariosComponent ],
+      imports: [DataTablesModule, HttpClientModule]
     })
     .compileComponents();
   });

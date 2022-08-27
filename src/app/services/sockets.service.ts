@@ -29,29 +29,6 @@ export class SocketsService {
   }
 
 
-/*   listen(eventName: string){
-    return new Observable((Subscriber) => {
-      this.socket.on('private-message', (data:unknown) => {
-        Subscriber.next(data);
-      });
-    });
-  }
-
-  emit(eventName: string){
-    //console.log('emitir');
-    //this.socket.emit(eventName, 'hola');
-
-    const mensaje = `Hola Mundo`;
-    const info = {
-        msg: mensaje,
-        id: '123455',
-        fecha: new Date().getTime()
-    }
-    this.socket.emit(eventName, info, (id: any) => {
-        console.log('Desde el server!!', id);
-    });
-  } */
-
   /** Metodo que verifica que la conexion Socket esta activa */
   conectado(){
     this.socket.on('connect', () => {
@@ -60,9 +37,11 @@ export class SocketsService {
   }
   /** Metodo que verifica que la conexion Socket se ha desconectado */
   desconectado(){
-    this.socket.on('disconnect', () => {
+    /* this.socket.emit('disconnect', () => {
       console.log('Desconectado del Servidor');
-    });
+    }); */
+    this.socket.disconnect();
+    console.log('Desconectado del Servidor');
   }
   /** Cuenta los usuario conectados via SOCKET */
   userCount(){

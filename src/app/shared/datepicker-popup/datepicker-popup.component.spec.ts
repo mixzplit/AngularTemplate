@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatepickerPopupComponent } from './datepicker-popup.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('DatepickerPopupComponent', () => {
   let component: DatepickerPopupComponent;
@@ -8,7 +9,8 @@ describe('DatepickerPopupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DatepickerPopupComponent ]
+      declarations: [ DatepickerPopupComponent ],
+      imports: [NgbModule]
     })
     .compileComponents();
   });

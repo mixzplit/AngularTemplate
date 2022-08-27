@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CrearUsuariosComponent } from './crear-usuarios.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('CrearUsuariosComponent', () => {
   let component: CrearUsuariosComponent;
@@ -8,7 +10,8 @@ describe('CrearUsuariosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrearUsuariosComponent ]
+      declarations: [ CrearUsuariosComponent ],
+      imports: [ReactiveFormsModule, HttpClientModule]
     })
     .compileComponents();
   });

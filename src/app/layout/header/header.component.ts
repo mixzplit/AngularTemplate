@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { SocketsService } from '../../services/sockets.service';
 
 /**
  * HeaderComponent
@@ -24,7 +25,7 @@ export class HeaderComponent implements OnInit {
    * informacion del usuario y mostrar el Avatar
    * @param userService 
    */
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private socket: SocketsService) { }
   
   /**
    * Inicio del ciclo de vida del Componente
@@ -52,6 +53,7 @@ export class HeaderComponent implements OnInit {
         this.userService.deleteCookie();
         Swal.close();
         this.router.navigateByUrl('/');
+        this.socket.desconectado();
         //window.location.reload();
       },
       error: (err) => {
