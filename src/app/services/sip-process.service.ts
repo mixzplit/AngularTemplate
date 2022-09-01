@@ -31,8 +31,7 @@ export class SipProcessService {
   
   }
 
-  createUsuario(users: any){
-    //console.log(users);
+  createUsuario(users: UsuarioModel){
     return this.http.post(`${environment.SERVER_TW}/api/sipservices/`, users)
           .pipe( 
             map( resp => {

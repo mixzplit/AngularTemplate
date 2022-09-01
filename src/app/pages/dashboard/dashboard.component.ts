@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SocketsService } from '../../services/sockets.service';
-import { Chart, LinearScale, BarController, CategoryScale, BarElement, LineController,
-        PointElement, LineElement, Legend, Tooltip } from 'chart.js';
 import { UserService } from 'src/app/services/user.service';
 import { WeatherService } from 'src/app/services/weather.service';
-Chart.register(LinearScale, BarController, CategoryScale, BarElement, 
-               LineController, PointElement, LineElement, Legend, Tooltip);
+
 /**
  * Componente Dashboard
  */
