@@ -1,5 +1,5 @@
 /**
- * Clase Usuario que contrala la informacion del Login
+ * Clase Usuario que controla la informacion del Login
  */
 export class UsuarioModel {
     /**
@@ -15,5 +15,6 @@ export class UsuarioModel {
     email!: string | number | string[] | undefined;
     zona!: string | number | string[] | undefined;
     nombre: string | number | string[] | undefined;
+    grupo: number | undefined;
     
 }

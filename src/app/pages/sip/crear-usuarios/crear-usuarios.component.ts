@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SipProcessService } from 'src/app/services/sip-process.service';
 import Swal from 'sweetalert2';
+import { UsuarioModel } from '../../../models/usuarioModel';
 
 @Component({
   selector: 'app-crear-usuarios',
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
 export class CrearUsuariosComponent implements OnInit {
   title = 'Crear Usuarios SIP';
 
+  usuarioSip: UsuarioModel = new UsuarioModel()
   form!: FormGroup;
   lastId: number = 0;
   response: any = {};
@@ -66,8 +68,10 @@ export class CrearUsuariosComponent implements OnInit {
     });
     Swal.showLoading();
 
+    //Asignamos el valor del form a la clase UsuarioModel
+    this.usuarioSip = formValues;
 
-    this.sipService.createUsuario(formValues).subscribe({
+    this.sipService.createUsuario(this.usuarioSip).subscribe({
       next: (resp) => { 
         this.response = resp
         Swal.fire('Usuario Creado', '', 'success')
