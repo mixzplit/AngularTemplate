@@ -43,7 +43,7 @@ export class UserService {
       ...user
     };
 
-    return this.http.post(`${environment.SERVER_TW}/api/auth`, userData)
+    return this.http.post<UsuarioModel>(`${environment.SERVER_TW}/api/auth`, userData)
       .pipe(
         map( resp => {
           this.response = resp

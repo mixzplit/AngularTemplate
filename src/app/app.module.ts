@@ -10,6 +10,11 @@ import { LayoutModule } from './layout/layout.module';
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocketsService } from './services/sockets.service';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ROOT_REDUCERS } from './state/app.state';
+import { ProductsEffects } from './state/effetcs/products.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -24,6 +29,9 @@ import { SocketsService } from './services/sockets.service';
     AppRoutingModule,
     HttpClientModule,
     LayoutModule,
+    StoreModule.forRoot(ROOT_REDUCERS),
+    StoreDevtoolsModule.instrument({ name:'TEST' }),
+    EffectsModule.forRoot([ProductsEffects]),
   ],
   providers: [CookieService,SocketsService],
   bootstrap: [AppComponent]

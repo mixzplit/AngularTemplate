@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { UsuarioModel } from '../../models/usuarioModel';
 import { UserService } from '../../services/user.service';
 import { environment } from '../../../environments/environment';
+import { Store } from '@ngrx/store';
 
 /**
  * Componente Login
@@ -12,7 +13,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   /**
@@ -28,38 +29,39 @@ export class LoginComponent implements OnInit {
   landscapeLogo: string = '';
   styleButton: string = '';
 
-
   /**
    * Constructor, recibe como parametros los servicios Router y UserService
-   * @param router 
-   * @param auth 
+   * @param router
+   * @param auth
    */
-  constructor(private router: Router, private auth: UserService) { 
+  constructor(
+    private router: Router,
+    private auth: UserService,
+    private store: Store<any>
+  ) {}
 
-  }
-  
   /**
    * Metodo que se ejecuta al momento de cargar la pagina.
    * Dentro de este metodo validamos si existe un token o session activa,
-   * si es true no pide las credenciales de acceso.   * 
+   * si es true no pide las credenciales de acceso.   *
    */
   ngOnInit(): void {
     //console.log('LoginComponent');
     this.loadBrandLogo();
-    if(this.auth.isAuth()){
+    if (this.auth.isAuth()) {
       this.router.navigateByUrl('/home');
     }
   }
-  
+
   /**
    * Metodo que envia la informacion del usuario desde el formulario
    * para que sea validado por el servicio {@link UserService} en el metodo
-   * authUser() 
-   * @param {NgForm} form 
+   * authUser()
+   * @param {NgForm} form
    * @returns Redireccion al home si la credenciales fueron validadas correctamente
    */
-  login (form: NgForm){
-    if ( form.invalid ) {
+  login(form: NgForm) {
+    if (form.invalid) {
       //console.log(form);
       return;
     }
@@ -74,29 +76,27 @@ export class LoginComponent implements OnInit {
     Swal.showLoading();
 
     this.auth.authUser(this.user).subscribe({
-      next: (resp) => { 
-        this.response = resp
+      next: (resp) => {
+        this.response = resp;
         //console.log(this.response);
         Swal.close();
         this.router.navigateByUrl('/home/dashboard');
       },
-      error: (err) => { 
+      error: (err) => {
         //console.log(err);
-        this.errorMsg = err.error.err.message
-        Swal.fire(this.errorMsg, '', 'error')
-      }
+        this.errorMsg = err.error.err.message;
+        Swal.fire(this.errorMsg, '', 'error');
+      },
     });
-
   }
 
-  loadBrandLogo(){
-    if(environment.production){
+  loadBrandLogo() {
+    if (environment.production) {
       this.brandLogo = 'assets/images/tupperBrands-logo-resize.png';
       this.landscapeLogo = 'assets/images/Landscape_Login.png';
-    }else{
+    } else {
       this.brandLogo = 'assets/images/logo.svg';
       this.landscapeLogo = 'assets/images/comic.jpg';
     }
   }
-
 }

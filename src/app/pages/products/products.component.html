@@ -2,7 +2,7 @@
     <h1 class="h2">{{ title }}</h1>
 </div>
 
-
+<b *ngIf="loading$ | async">Cargando...</b>
 <!-- MODAL -->
 
 <!-- Modal -->
@@ -65,10 +65,10 @@
 </div>-->
 
 <div class="table-responsive">
-    <ngx-skeleton-loader *ngIf="loader" count="5" appearance="line"></ngx-skeleton-loader>
+    <ngx-skeleton-loader *ngIf="loading$ | async" count="5" appearance="line"></ngx-skeleton-loader>
 </div>
 
-<div class="table-responsive" *ngIf="show">
+<div class="table-responsive" *ngIf="showTable$ | async">
     <table class="table table-hover caption-top">
         <caption>Lista de Articulos</caption>
         <thead class="table-light">
@@ -85,7 +85,7 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            <tr *ngFor="let item of response.data; index as i">
+            <tr *ngFor="let item of (products$ | async).data; index as i">
                 <td>{{i + 1}}</td>
                 <td>{{item.ANIO}}</td>
                 <td>{{item.CAMPANIA}}</td>
@@ -95,7 +95,7 @@
                 <td>{{item.NOMBREARTICULO}}</td>
                 <td>{{item.PRECIOORDEN}}</td>
                 <td>
-                    <fa-icon (click)="onDelete(item, i)" [icon]="faTimesCircle"></fa-icon>
+                    <fa-icon (click)="onDelete(item)" [icon]="faTimesCircle"></fa-icon>
                 </td>
             </tr>
         </tbody>
