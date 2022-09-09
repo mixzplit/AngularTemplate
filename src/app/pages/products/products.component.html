@@ -1,63 +1,116 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">{{ title }}</h1>
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">{{ title }}</h1>
 </div>
 
 <b *ngIf="loading$ | async">Cargando...</b>
 <!-- MODAL -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">...</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
+  </div>
 </div>
 
-
 <form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off">
-    <div class="row">
-        <div class="col">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingAño" placeholder="Año" formControlName="anio" [class.is-invalid]="anioInvalid">
-                <label for="floatingAño">Año</label>
-                <div *ngIf="anioInvalid">
-                    <div *ngIf="form.controls['anio'].errors?.['required']" class="text-danger">Año es obligatorio</div>
-                    <div *ngIf="form.controls['anio'].errors?.['maxlength'] || form.controls['anio'].errors?.['minlength'] " class="text-danger">Año debe tener 4 números</div>
-                    <div *ngIf="form.controls['anio'].errors?.['pattern']" class="text-danger">Año solo debe contener números</div>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="floatingAño"
+          placeholder="Año"
+          formControlName="anio"
+          [class.is-invalid]="anioInvalid"
+        />
+        <label for="floatingAño">Año</label>
+        <div *ngIf="anioInvalid">
+          <div
+            *ngIf="form.controls['anio'].errors?.['required']"
+            class="text-danger"
+          >
+            Año es obligatorio
+          </div>
+          <div
+            *ngIf="form.controls['anio'].errors?.['maxlength'] || form.controls['anio'].errors?.['minlength'] "
+            class="text-danger"
+          >
+            Año debe tener 4 números
+          </div>
+          <div
+            *ngIf="form.controls['anio'].errors?.['pattern']"
+            class="text-danger"
+          >
+            Año solo debe contener números
+          </div>
         </div>
-        <div class="col">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingCampaña" placeholder="Campaña" formControlName="campania" [class.is-invalid]="campaniaInvalid">
-                <label for="floatingCampaña">Campaña</label>
-                <span *ngIf="campaniaInvalid" class="text-danger">Campaña es obligatorio</span>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingCodigo" placeholder="Codigo" formControlName="codigoarticulo" [class.is-invalid]="codigoInvalid">
-                <label for="floatingCodigo">Codigo Articulo</label>
-                <div id="emailHelp" class="form-text">Dejar vacio para consultar todos los articulos</div>
-                <span *ngIf="codigoInvalid" class="text-danger">Codigo Articulo es obligatorio</span>
-            </div>
-        </div>
-        <div class="col">
-            <button class="btn btn-lg btn-primary">Buscar</button>
-        </div>
+      </div>
     </div>
-
+    <div class="col">
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="floatingCampaña"
+          placeholder="Campaña"
+          formControlName="campania"
+          [class.is-invalid]="campaniaInvalid"
+        />
+        <label for="floatingCampaña">Campaña</label>
+        <span *ngIf="campaniaInvalid" class="text-danger"
+          >Campaña es obligatorio</span
+        >
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="floatingCodigo"
+          placeholder="Codigo"
+          formControlName="codigoarticulo"
+          [class.is-invalid]="codigoInvalid"
+        />
+        <label for="floatingCodigo">Codigo Articulo</label>
+        <div id="emailHelp" class="form-text">
+          Dejar vacio para consultar todos los articulos
+        </div>
+        <span *ngIf="codigoInvalid" class="text-danger"
+          >Codigo Articulo es obligatorio</span
+        >
+      </div>
+    </div>
+    <div class="col">
+      <button class="btn btn-lg btn-primary">Buscar</button>
+    </div>
+  </div>
 </form>
 
 <!--<div>
@@ -65,11 +118,15 @@
 </div>-->
 
 <div class="table-responsive">
-    <ngx-skeleton-loader *ngIf="loading$ | async" count="5" appearance="line"></ngx-skeleton-loader>
+  <ngx-skeleton-loader
+    *ngIf="loading$ | async"
+    count="5"
+    appearance="line"
+  ></ngx-skeleton-loader>
 </div>
 
 <div class="table-responsive" *ngIf="showTable$ | async">
-    <table class="table table-hover caption-top">
+  <!-- <table class="table table-hover caption-top">
         <caption>Lista de Articulos</caption>
         <thead class="table-light">
             <tr>
@@ -99,9 +156,92 @@
                 </td>
             </tr>
         </tbody>
+    </table> -->
+
+  <!-- Material Table -->
+
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. Mia"
+      #input
+    />
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+        <td mat-cell *matCellDef="let row">{{ row.ID }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="anio">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Anio</th>
+        <td mat-cell *matCellDef="let row">{{ row.ANIO }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="campania">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Campaña</th>
+        <td mat-cell *matCellDef="let row">{{ row.CAMPANIA }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="codigoarticulo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cod. Articulo</th>
+        <td mat-cell *matCellDef="let row">{{ row.CODIGOARTICULO }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="codigofacturacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Cod. Facturación
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.CODIGOFACTURACION }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="correlativo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Correlativo</th>
+        <td mat-cell *matCellDef="let row">{{ row.CORRELATIVO }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombrearticulo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Nombre Articulo
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.NOMBREARTICULO }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="precioorden">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio</th>
+        <td mat-cell *matCellDef="let row">{{ row.PRECIOORDEN }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+        <td mat-cell *matCellDef="let row">
+          <fa-icon (click)="onDelete(row)" [icon]="faTimesCircle"></fa-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="8">
+          No data matching the filter "{{ input.value }}"
+        </td>
+      </tr>
     </table>
+
+    <mat-paginator
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page of users"
+    ></mat-paginator>
+  </div>
 </div>
 
-<div *ngIf="noData" class="alert alert-danger" role="alert">
-    {{errorMsg}}
+<div *ngIf="noData$ | async" class="alert alert-danger" role="alert">
+  NO HAY DATOS PARA MOSTRAR
 </div>

@@ -161,7 +161,6 @@ export class ProductService {
       return this.http.get(`${environment.SERVER_TW}/api/products/${codigoarticulo}`, {params: params})
       .pipe(
         map(resp => {
-          console.log("Product Services",resp);
           return resp;
         })
       );

@@ -3,18 +3,20 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
-import { LayoutModule } from './layout/layout.module';
-import { CookieService } from 'ngx-cookie-service';
+import { MatTableModule } from '@angular/material/table';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SocketsService } from './services/sockets.service';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CookieService } from 'ngx-cookie-service';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { LayoutModule } from './layout/layout.module';
+import { LoginComponent } from './pages/login/login.component';
+import { SocketsService } from './services/sockets.service';
 import { ROOT_REDUCERS } from './state/app.state';
 import { ProductsEffects } from './state/effetcs/products.effects';
-import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { EffectsModule } from '@ngrx/effects';
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({ name:'TEST' }),
     EffectsModule.forRoot([ProductsEffects]),
+    BrowserAnimationsModule,
+    //MatTableModule
   ],
   providers: [CookieService,SocketsService],
   bootstrap: [AppComponent]

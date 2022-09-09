@@ -16,6 +16,10 @@ export const selectProductsLoading = createSelector(
     (state: ProductState) => state.loading //TODO:HJO
 )
 
+export const noDataProduct = createSelector(
+    selectProductsFeature,
+    (state: ProductState) => state.noData
+)
 /** Nos sirve para mostar/ocultar el HTML Table en la vista */
 export const selectProductsTable = createSelector(
     selectProductsFeature,

@@ -1,26 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductService } from '../../services/product.service';
-import {
-  faTimesCircle,
-  faCalendarAlt,
-} from '@fortawesome/free-regular-svg-icons';
-import { Product } from '../../models/productModel';
-import Swal from 'sweetalert2';
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { Store } from '@ngrx/store';
-import { showProducts } from 'src/app/state/actions/products.actions';
 import { Observable } from 'rxjs';
-import {
-  selectProductsLoading,
-  selectProductsList,
-  selectProductsTable,
-} from '../../state/selectors/products.selectors';
-import { ProductModel } from '../../core/models/products/Products.interface';
-import {
-  loadedProducts,
-  removeProduct,
-} from '../../state/actions/products.actions';
+import { showProducts } from 'src/app/state/actions/products.actions';
 import { AppState } from 'src/app/state/app.state';
+import Swal from 'sweetalert2';
+import { ProductModel } from '../../core/models/products/Products.interface';
+import { Product } from '../../models/productModel';
+import { removeProduct } from '../../state/actions/products.actions';
+import {
+  noDataProduct,
+  selectProductsList,
+  selectProductsLoading,
+  selectProductsTable
+} from '../../state/selectors/products.selectors';
+
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 /**
  * Componente Products.
@@ -32,7 +30,7 @@ import { AppState } from 'src/app/state/app.state';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, AfterViewInit {
   /** Titulo de la Página */
   title: string = 'Articulos WOE';
   /**
@@ -42,7 +40,7 @@ export class ProductsComponent implements OnInit {
   form!: FormGroup;
   /** Iniciamos el objeto Product y lo asociamos a los valores del formulario */
   product: Product = new Product();
-  
+
   /** Guardamos el mensaje de Error */
   errorMsg: string = '';
   /** FontAwsome Icon faTimeCircle */
@@ -52,22 +50,41 @@ export class ProductsComponent implements OnInit {
   noData: boolean = false;
 
   //Aplicando Redux NgRX
-
   loading$: Observable<boolean> = new Observable();
   showTable$: Observable<boolean> = new Observable();
   products$: Observable<any> = new Observable();
+  noData$: Observable<boolean> = new Observable();
+
+  /** Material Angular Table */
+  displayedColumns: string[] = [
+    'id',
+    'anio',
+    'campania',
+    'codigoarticulo',
+    'codigofacturacion',
+    'correlativo',
+    'nombrearticulo',
+    'precioorden',
+    'acciones'
+  ];
+
+  dataSource = new MatTableDataSource<ProductModel>();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   /**
-   * Constructor, recibe como parametro el FormBuilder y 
+   * Constructor, recibe como parametro el FormBuilder y
    * el Store de NgRX
    * @param {FormBuilder} fb
    * @param {Store<AppState>} store
    */
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<AppState>
-  ) {
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {
     this.createForm();
+  }
+  ngAfterViewInit(): void {
+    //this.dataSource.paginator = this.paginator;
+    //this.dataSource.sort = this.sort;
   }
   /** Metodo que se ejecuta cuando carga la página */
   ngOnInit(): void {}
@@ -111,13 +128,36 @@ export class ProductsComponent implements OnInit {
       });
     }
 
+/*     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort; */
+
     this.product = formValues.value;
     //NgRX
     this.loading$ = this.store.select(selectProductsLoading); //SkeletonLoader -> true or false
     this.showTable$ = this.store.select(selectProductsTable); //Show table -> true or false
     this.store.dispatch(showProducts(formValues.value)); // Disparamos la accion
+    this.noData$ = this.store.select(noDataProduct);
     this.products$ = this.store.select(selectProductsList); // Obtenemos valores
 
+    this.products$.subscribe({
+      next: (resp) => {
+        this.dataSource.data = resp;
+        this.dataSource.data = resp.data;
+        //this.dataSource.paginator = this.paginator;
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+        this.dataSource.sort = this.sort;
+
+      },
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   /**
