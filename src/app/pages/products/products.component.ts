@@ -128,8 +128,6 @@ export class ProductsComponent implements OnInit, AfterViewInit {
       });
     }
 
-/*     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort; */
 
     this.product = formValues.value;
     //NgRX
@@ -138,7 +136,8 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     this.store.dispatch(showProducts(formValues.value)); // Disparamos la accion
     this.noData$ = this.store.select(noDataProduct);
     this.products$ = this.store.select(selectProductsList); // Obtenemos valores
-
+    //TODO:Buscamos en el observable de producto para asignar
+    // valores a Material Matable
     this.products$.subscribe({
       next: (resp) => {
         this.dataSource.data = resp;
@@ -146,11 +145,13 @@ export class ProductsComponent implements OnInit, AfterViewInit {
         //this.dataSource.paginator = this.paginator;
         setTimeout(() => this.dataSource.paginator = this.paginator);
         this.dataSource.sort = this.sort;
-
       },
     });
   }
-
+  /**
+   * Filtrado de Material Table
+   * @param event 
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
