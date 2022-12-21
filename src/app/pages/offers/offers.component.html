@@ -41,13 +41,14 @@
         <thead class="table-light">
             <tr>
                 <th>#</th>
-                <th>Anio/Campania</th>
+                <th>Año/Campaña</th>
                 <th>Cod. Articulo</th>
                 <th>Descripción</th>
                 <th>F. Inicio</th>
                 <th>F. Fin</th>
                 <th>F. Corte</th>
                 <th>Stock</th>
+                <th>Estado</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -60,7 +61,7 @@
                 <td>{{item.fechafin | date:"d/M/yy, h:mm a"}}</td>
                 <td>{{item.fechacorte | date:"d/M/yy, h:mm a"}}</td>
                 <td>{{item.stock}}</td>
-
+                <td class="badge" [ngClass]="{ 'text-bg-danger': item.estado == 'FINALIZADA', 'text-bg-success' : item.estado == 'ACTIVA' , 'text-bg-info' : item.estado.includes('EMPIEZA'), 'text-bg-warning' : item.estado.includes('HOY')  }" >{{item.estado}}</td>
             </tr>
         </tbody>
     </table>
