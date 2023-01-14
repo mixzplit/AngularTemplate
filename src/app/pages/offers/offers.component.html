@@ -48,6 +48,7 @@
                 <th>F. Fin</th>
                 <th>F. Corte</th>
                 <th>Stock</th>
+                <th>Unid. Solicitadas</th>
                 <th>Estado</th>
             </tr>
         </thead>
@@ -61,6 +62,7 @@
                 <td>{{item.fechafin | date:"d/M/yy, h:mm a"}}</td>
                 <td>{{item.fechacorte | date:"d/M/yy, h:mm a"}}</td>
                 <td>{{item.stock}}</td>
+                <td>{{item.unid_solicitadas}}</td>
                 <td class="badge" [ngClass]="{ 'text-bg-danger': item.estado == 'FINALIZADA', 'text-bg-success' : item.estado == 'ACTIVA' , 'text-bg-info' : item.estado.includes('EMPIEZA'), 'text-bg-warning' : item.estado.includes('HOY')  }" >{{item.estado}}</td>
             </tr>
         </tbody>
