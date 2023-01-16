@@ -26,10 +26,12 @@
                         "tsConfig": "tsconfig.app.json",
                         "assets": [
                             "src/favicon.ico",
-                            "src/assets"
+                            "src/assets",
+                            "src/assets/fonts"
                         ],
                         "styles": [
                             "src/styles.css",
+                            "src/assets/css/karla-fonts.css",
                             "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css"
                         ],
                         "scripts": [
