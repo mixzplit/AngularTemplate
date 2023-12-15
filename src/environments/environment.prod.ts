@@ -1,6 +1,6 @@
 /**
  * Environment Prod
- * Server: 159.234.148.53
+ * Server: arg1siaprd
  */
 export const environment = {
   production: true,
