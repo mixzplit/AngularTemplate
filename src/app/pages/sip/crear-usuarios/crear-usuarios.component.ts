@@ -24,6 +24,7 @@ export class CrearUsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.maxId();
     this.createForm();
+    this.onValidateZonaByGrupo();
   }
   
   // Getters
@@ -104,7 +105,7 @@ export class CrearUsuariosComponent implements OnInit {
       usuario: ['', [Validators.required]],
       nombre: ['', [Validators.required, Validators.pattern(`[a-zA-Z ]*`)] ],
       grupo: ['', [Validators.required, Validators.pattern(`^[0-9]*$`), Validators.maxLength(1), Validators.minLength(1)] ],
-      zona: ['', [Validators.required, Validators.pattern(`^[0-9]*$`), Validators.minLength(2), Validators.maxLength(3)] ],
+      zona: ['', [] ],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9-]+[.]+[a-z]{2,3}$')] ],
     });
   }
@@ -112,6 +113,53 @@ export class CrearUsuariosComponent implements OnInit {
   /** Limpia el Formulario */
   onReset(){
     this.form.reset();
+  }
+
+  onValidateZonaByGrupo(){
+    this.form.get('grupo')?.valueChanges.subscribe((grupoValue) => {
+      const zonaControl = this.form.get('zona');
+
+      // Limpiar validadores actuales
+      zonaControl?.clearValidators();
+
+      if (grupoValue === '3') {
+        // Agregar validador específico si el grupo es '2'
+        zonaControl?.setValidators([
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.minLength(2),
+          Validators.maxLength(3)
+        ]);
+      } else if (grupoValue === '1' || grupoValue === '2') {
+        // Agregar validador para grupos distintos de '2'
+        zonaControl?.setValidators([
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.maxLength(1)]);
+      }
+
+      // Actualizar validadores y forzar la validación
+      zonaControl?.updateValueAndValidity();
+    });
+  }
+
+  /**
+   * Metodo para cambiar el placeHolder del campo
+   * Segun e grupo seleccionado
+   * @returns string
+   */
+  getZonaPlaceholder(): string {
+    const grupoValue = this.form.get('grupo')?.value;
+  
+    if (grupoValue === '1') {
+      return 'Tupperware';
+    } else if (grupoValue === '2') {
+      return 'Division';
+    } else if (grupoValue === '3') {
+      return 'Zona';
+    } else {
+      return 'Zona'; // Valor predeterminado o manejo de otros casos
+    }
   }
 
 }

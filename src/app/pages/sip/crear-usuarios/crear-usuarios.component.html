@@ -32,28 +32,41 @@
             </div>
         </div>
         <div class="col">
-            <div class="form-floating mb-3">
+<!--             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingGrupo" placeholder="Grupo, example: 1, 2 ó 3" formControlName="grupo" [class.is-invalid]="grupoInvalid">
                 <label for="floatingGrupo">Grupo</label>
-                <!-- <span *ngIf="grupoInvalid" class="text-danger">Grupo es obligatorio</span> -->
                 <div id="emailHelp" class="form-text"> Info.: 3 => Gerente Zona; 2 => Gerente Divisional; 1 => Usuario Tupper.</div>
                 <div *ngIf="grupoInvalid">
                     <div *ngIf="form.controls['grupo'].errors?.['required']" class="text-danger">Grupo es obligatorio</div>
                     <div *ngIf="form.controls['grupo'].errors?.['maxlength'] || form.controls['grupo'].errors?.['minlength'] " class="text-danger">Grupo debe ser 1 número</div>
                     <div *ngIf="form.controls['grupo'].errors?.['pattern']" class="text-danger">Grupo solo debe contener números</div>
                 </div>
+            </div> -->
+
+
+            <div class="form-floating mb-3">
+                <select class="form-select" d="floatingSelect" aria-label="Floating label select example" formControlName="grupo" [class.is-invalid]="grupoInvalid">
+                    <option selected>Seleccione Perfil</option>
+                    <option value="1">Usuario Tupperware</option>
+                    <option value="2">Gerente Divisional</option>
+                    <option value="3">Gerente de Zona</option>
+                </select>
+                <label for="floatingSelect">Grupo</label>
+                <span *ngIf="grupoInvalid" class="text-danger">Seleccione un perfil</span>
             </div>
+
         </div>
     </div>
 
     <div class="row">
         <div class="col">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingZona" placeholder="Zona" formControlName="zona" [class.is-invalid]="zonaInvalid">
-                <label for="floatingZona">Zona</label>
+                <input type="text" class="form-control" id="floatingZona" [placeholder]="getZonaPlaceholder()" formControlName="zona" [class.is-invalid]="zonaInvalid">
+                <label for="floatingZona" [innerHTML]="getZonaPlaceholder()"></label>
                 <div *ngIf="zonaInvalid">
                     <div *ngIf="form.controls['zona'].errors?.['required']" class="text-danger">Zona es obligatorio</div>
-                    <div *ngIf="form.controls['zona'].errors?.['maxlength'] || form.controls['zona'].errors?.['minlength'] " class="text-danger">Zona debe contener entre 2 y 3 números</div>
+                    <div *ngIf="form.controls['grupo'].value === '2' && form.controls['zona'].errors?.['maxlength']" class="text-danger">Zona debe contener 1 número</div>
+                    <div *ngIf="(form.controls['grupo'].value === '1' || form.controls['grupo'].value === '3') && (form.controls['zona'].errors?.['maxlength'] || form.controls['zona'].errors?.['minlength'] )" class="text-danger">Zona debe contener entre 2 y 3 números</div>
                     <div *ngIf="form.controls['zona'].errors?.['pattern']" class="text-danger">Zona solo debe contener números</div>
                 </div>
             </div>
