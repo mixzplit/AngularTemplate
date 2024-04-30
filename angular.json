@@ -86,13 +86,13 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "SSP2:build:production"
+                            "buildTarget": "SSP2:build:production"
                         },
                         "development": {
-                            "browserTarget": "SSP2:build:development"
+                            "buildTarget": "SSP2:build:development"
                         },
                         "dev": {
-                            "browserTarget": "SSP2:build:dev"
+                            "buildTarget": "SSP2:build:dev"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -100,7 +100,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "SSP2:build"
+                        "buildTarget": "SSP2:build"
                     }
                 },
                 "test": {
