@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
 
   loadBrandLogo(){
     if(environment.production){
-      this.brandLogo = 'assets/images/tupperBrands-logo-resize.png';
+      this.brandLogo = 'assets/images/tupperware_black.png';
       this.landscapeLogo = 'assets/images/Landscape_Login.png';
     }else{
       this.brandLogo = 'assets/images/logo.svg';

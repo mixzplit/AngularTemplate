@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit {
 
   loadBrandLogo(){
     if(environment.production){
-      this.brandLogo = 'assets/images/tupperBrands-logo-resize.png';
+      this.brandLogo = 'assets/images/tupperware_header.png';
       this.showLogo = true;
     }
   }

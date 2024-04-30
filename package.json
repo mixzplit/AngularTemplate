@@ -10,7 +10,7 @@
         "compodoc": "npx compodoc -p tsconfig.doc.json -d docs -o -s --theme vagrant -w",
         "build-deploy": "ng build --configuration=dev && ssh acurerod@10.96.4.6 rm -rv /home/acurerod/www/html/* && scp -r dist/ssp2/* acurerod@10.96.4.6:/home/acurerod/www/html &&  echo 'Reiniciando Apache...' && ssh acurerod@10.96.4.6 systemctl restart apache2 || (echo 'Error al reiniciar Apache.' && exit 1)  && echo 'Apache reiniciado con éxito.'",
         "deploy": "scp -r dist/ssp2/* acurerod@159.234.148.6:/home/acurerod/www/html",
-        "build-deploy-prd": "ng build --configuration=production && && ssh acurerod@10.96.4.6 rm -rv /home/acurerod/www/html/* && scp -r dist/ssp2/* acurerod@159.234.148.53:/home/acurerod/www/html"
+        "build-deploy-prd": "ng build --configuration=production && ssh acurerod@arg1siaprd rm -rv /home/acurerod/www/html/* && scp -r dist/ssp2/* acurerod@arg1siaprd:/home/acurerod/www/html"
     },
     "private": true,
     "dependencies": {

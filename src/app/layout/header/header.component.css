@@ -8,3 +8,7 @@
     /* filter: opacity(0.5) drop-shadow(0 0 0 rgb(255, 255, 255)); */
     filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(82deg) brightness(103%) contrast(101%);
 }
+
+.bg-shades {
+    background-color: #7bd6dc;
+}
